@@ -58,12 +58,6 @@ const
                                ##  or from the RMW layer itself.
 
 type
-  RMW_QOS_POLICY_LIVELINESS_MANUAL_BY_NODE_DEPRECATED_MSG* = "RMW_QOS_POLICY_LIVELINESS_MANUAL_BY_NODE is deprecated. Use RMW_QOS_POLICY_LIVELINESS_MANUAL_BY_TOPIC if manually asserted liveliness is needed." ##
-                              ##  Structure which encapsulates an rmw node
-  RMW_QOS_DEADLINE_BEST_AVAILABLE* = (9223372036'i64, 854775806'i64)
-  RMW_QOS_LIVELINESS_LEASE_DURATION_BEST_AVAILABLE* = (9223372036'i64,
-      854775806'i64)
-  RMW_QOS_POLICY_DEPTH_SYSTEM_DEFAULT* = 0
 
   rmw_node_t* {.importc: "rmw_node_t", header: "types.h", bycopy.} = object
     implementation_identifier* {.importc: "implementation_identifier".}: cstring ##
@@ -378,28 +372,28 @@ type
     RMW_QOS_POLICY_LIVELINESS_BEST_AVAILABLE = 5
 
   rmw_qos_profile_t* {.importc: "rmw_qos_profile_t", header: "types.h", bycopy.} = object
-    history* {.importc: "history".}: rmw_qos_history_policy_e
+    history* {.importc: "history".}: rmw_qos_history_policy_t
     depth* {.importc: "depth".}: csize_t ##  Size of the message queue.
-    reliability* {.importc: "reliability".}: rmw_qos_reliability_policy_e ##
+    reliability* {.importc: "reliability".}: rmw_qos_reliability_policy_t ##
                               ##  Reliabiilty QoS policy setting
-    durability* {.importc: "durability".}: rmw_qos_durability_policy_e ##
+    durability* {.importc: "durability".}: rmw_qos_durability_policy_t ##
                               ##  Durability QoS policy setting
     ##  The period at which messages are expected to be sent/received
-    deadline* {.importc: "deadline".}: rmw_time_s ##
+    deadline* {.importc: "deadline".}: rmw_time_t ##
                                                   ##  RMW_DURATION_UNSPEFICIED will use the RMW implementation's default value,
                                                   ##    which may or may not be infinite.
                                                   ##  RMW_DURATION_INFINITE explicitly states that messages never miss a deadline expectation.
                                                   ##
     ##  The age at which messages are considered expired and no longer valid
-    lifespan* {.importc: "lifespan".}: rmw_time_s ##
+    lifespan* {.importc: "lifespan".}: rmw_time_t ##
                                                   ##  RMW_DURATION_UNSPEFICIED will use the RMW implementation's default value,
                                                   ##    which may or may not be infinite.
                                                   ##  RMW_DURATION_INFINITE explicitly states that messages do not expire.
                                                   ##
-    liveliness* {.importc: "liveliness".}: rmw_qos_liveliness_policy_e ##
+    liveliness* {.importc: "liveliness".}: rmw_qos_liveliness_policy_t ##
                               ##  Liveliness QoS policy setting
     ##  The time within which the RMW node or publisher must show that it is alive
-    liveliness_lease_duration* {.importc: "liveliness_lease_duration".}: rmw_time_s ##
+    liveliness_lease_duration* {.importc: "liveliness_lease_duration".}: rmw_time_t ##
                               ##
                               ##  RMW_DURATION_UNSPEFICIED will use the RMW implementation's default value,
                               ##    which may or may not be infinite.

@@ -83,39 +83,34 @@ import
   rcutils/macros, rcutils/macros, rcutils/macros, rcutils/allocator,
   rcutils/types/rcutils_ret, rcutils/allocator, rcutils/visibility_control,
   rcutils/visibility_control_macros, rcutils/visibility_control_macros,
-  rcutils/visibility_control, rcutils/allocator, rcutils/types,
-  rcutils/types/array_list, rcutils/types/array_list, rcutils/types,
-  rcutils/types/char_array, rcutils/types/char_array, rcutils/types,
-  rcutils/types/hash_map, rcutils/types/hash_map, rcutils/types,
-  rcutils/types/string_array, rcutils/types/string_array,
+  rcutils/visibility_control, rcutils/allocator, rcutils/types/array_list,
+  rcutils/types/array_list, rcutils/types/char_array, rcutils/types/char_array,
+  rcutils/types/hash_map, rcutils/types/hash_map, rcutils/types/string_array,
+  rcutils/types/string_array, rcutils/error_handling, rcutils/error_handling,
   rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
-  rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
-  rcutils/snprintf, rcutils/snprintf, rcutils/error_handling,
+  rcutils/error_handling, rcutils/snprintf, rcutils/snprintf,
+  rcutils/error_handling, rcutils/testing/fault_injection,
   rcutils/testing/fault_injection, rcutils/testing/fault_injection,
-  rcutils/testing/fault_injection, rcutils/error_handling,
   rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
-  rcutils/types/string_array, rcutils/qsort, rcutils/qsort,
-  rcutils/types/string_array, rcutils/types, rcutils/types/string_map,
-  rcutils/types/string_map, rcutils/types, rcutils/types/uint8_array,
-  rcutils/types/uint8_array, rcutils/types,
-  rosidl_runtime_c/message_type_support_struct,
+  rcutils/error_handling, rcutils/types/string_array, rcutils/qsort,
+  rcutils/qsort, rcutils/types/string_array, rcutils/types/string_map,
+  rcutils/types/string_map, rcutils/types/uint8_array,
+  rcutils/types/uint8_array, rosidl_runtime_c/message_type_support_struct,
   rosidl_runtime_c/visibility_control, rosidl_runtime_c/visibility_control,
   rosidl_runtime_c/message_type_support_struct,
   rosidl_typesupport_interface/macros,
   rosidl_runtime_c/message_type_support_struct,
   rosidl_runtime_c/service_type_support_struct,
   rosidl_runtime_c/service_type_support_struct, rosidl_runtime_c/sequence_bound,
-  rosidl_runtime_c/sequence_bound, ./event, ./event, ./macros, ./event, ./types,
-  ./types, rcutils/logging, rcutils/time, rcutils/time, rcutils/logging,
-  ./types, ./events_statuses/events_statuses,
-  ./events_statuses/incompatible_qos, ./qos_policy_kind, ./visibility_control,
-  ./visibility_control, ./qos_policy_kind, ./events_statuses/incompatible_qos,
-  ./events_statuses/events_statuses, ./events_statuses/liveliness_changed,
-  ./events_statuses/liveliness_changed, ./events_statuses/events_statuses,
-  ./events_statuses/liveliness_lost, ./events_statuses/liveliness_lost,
-  ./events_statuses/events_statuses, ./events_statuses/message_lost,
-  ./events_statuses/message_lost, ./events_statuses/events_statuses,
-  ./events_statuses/offered_deadline_missed,
+  rosidl_runtime_c/sequence_bound, ./event, ./event, ./event, ./types, ./types,
+  rcutils/logging, rcutils/logging, ./types, ./events_statuses/events_statuses,
+  ./events_statuses/incompatible_qos, ./qos_policy_kind, ./qos_policy_kind,
+  ./events_statuses/incompatible_qos, ./events_statuses/events_statuses,
+  ./events_statuses/liveliness_changed, ./events_statuses/liveliness_changed,
+  ./events_statuses/events_statuses, ./events_statuses/liveliness_lost,
+  ./events_statuses/liveliness_lost, ./events_statuses/events_statuses,
+  ./events_statuses/message_lost, ./events_statuses/message_lost,
+  ./events_statuses/events_statuses, ./events_statuses/offered_deadline_missed,
   ./events_statuses/offered_deadline_missed, ./events_statuses/events_statuses,
   ./events_statuses/requested_deadline_missed,
   ./events_statuses/requested_deadline_missed,
@@ -155,7 +150,7 @@ proc rmw_get_serialization_format*(): cstring {.
                               ##
 
 proc rmw_create_node*(context: ptr rmw_context_t; name: cstring;
-                      namespace_: cstring): ptr rmw_node_t {.
+                      namespace: cstring): ptr rmw_node_t {.
     importc: "rmw_create_node", header: "rmw.h".}
   ##  TODO(wjwwood): refactor this API to return a return code when updated to use an allocator
                                                  ##  Create a node and return a handle to that node.
@@ -1142,7 +1137,7 @@ proc rmw_subscription_get_content_filter*(subscription: ptr rmw_subscription_t;
                               ##
 
 proc rmw_take*(subscription: ptr rmw_subscription_t; ros_message: pointer;
-               taken: ptr _Bool; allocation: ptr rmw_subscription_allocation_t): rmw_ret_t {.
+               taken: ptr bool; allocation: ptr rmw_subscription_allocation_t): rmw_ret_t {.
     importc: "rmw_take", header: "rmw.h".}
   ##  Take an incoming ROS message.
                                           ##
@@ -1221,7 +1216,7 @@ proc rmw_take*(subscription: ptr rmw_subscription_t; ros_message: pointer;
                                           ##
 
 proc rmw_take_with_info*(subscription: ptr rmw_subscription_t;
-                         ros_message: pointer; taken: ptr _Bool;
+                         ros_message: pointer; taken: ptr bool;
                          message_info: ptr rmw_message_info_t;
                          allocation: ptr rmw_subscription_allocation_t): rmw_ret_t {.
     importc: "rmw_take_with_info", header: "rmw.h".}
@@ -1416,7 +1411,7 @@ proc rmw_take_sequence*(subscription: ptr rmw_subscription_t; count: csize_t;
                               ##
 
 proc rmw_take_serialized_message*(subscription: ptr rmw_subscription_t;
-    serialized_message: ptr rmw_serialized_message_t; taken: ptr _Bool;
+    serialized_message: ptr rmw_serialized_message_t; taken: ptr bool;
                                   allocation: ptr rmw_subscription_allocation_t): rmw_ret_t {.
     importc: "rmw_take_serialized_message", header: "rmw.h".}
   ##
@@ -1509,7 +1504,7 @@ proc rmw_take_serialized_message*(subscription: ptr rmw_subscription_t;
 
 proc rmw_take_serialized_message_with_info*(
     subscription: ptr rmw_subscription_t;
-    serialized_message: ptr rmw_serialized_message_t; taken: ptr _Bool;
+    serialized_message: ptr rmw_serialized_message_t; taken: ptr bool;
     message_info: ptr rmw_message_info_t;
     allocation: ptr rmw_subscription_allocation_t): rmw_ret_t {.
     importc: "rmw_take_serialized_message_with_info", header: "rmw.h".}
@@ -1601,7 +1596,7 @@ proc rmw_take_serialized_message_with_info*(
                               ##
 
 proc rmw_take_loaned_message*(subscription: ptr rmw_subscription_t;
-                              loaned_message: ptr pointer; taken: ptr _Bool;
+                              loaned_message: ptr pointer; taken: ptr bool;
                               allocation: ptr rmw_subscription_allocation_t): rmw_ret_t {.
     importc: "rmw_take_loaned_message", header: "rmw.h".}
   ##
@@ -1685,7 +1680,7 @@ proc rmw_take_loaned_message*(subscription: ptr rmw_subscription_t;
 
 proc rmw_take_loaned_message_with_info*(subscription: ptr rmw_subscription_t;
                                         loaned_message: ptr pointer;
-                                        taken: ptr _Bool;
+                                        taken: ptr bool;
                                         message_info: ptr rmw_message_info_t;
     allocation: ptr rmw_subscription_allocation_t): rmw_ret_t {.
     importc: "rmw_take_loaned_message_with_info", header: "rmw.h".}
@@ -1974,7 +1969,7 @@ proc rmw_send_request*(client: ptr rmw_client_t; ros_request: pointer;
 
 proc rmw_take_response*(client: ptr rmw_client_t;
                         request_header: ptr rmw_service_info_t;
-                        ros_response: pointer; taken: ptr _Bool): rmw_ret_t {.
+                        ros_response: pointer; taken: ptr bool): rmw_ret_t {.
     importc: "rmw_take_response", header: "rmw.h".}
   ##
                               ##  Take an incoming ROS service response.
@@ -2208,7 +2203,7 @@ proc rmw_destroy_service*(node: ptr rmw_node_t; service: ptr rmw_service_t): rmw
 
 proc rmw_take_request*(service: ptr rmw_service_t;
                        request_header: ptr rmw_service_info_t;
-                       ros_request: pointer; taken: ptr _Bool): rmw_ret_t {.
+                       ros_request: pointer; taken: ptr bool): rmw_ret_t {.
     importc: "rmw_take_request", header: "rmw.h".}
   ##  Take an incoming ROS service request.
                                                   ##
@@ -2993,7 +2988,7 @@ proc rmw_get_gid_for_client*(client: ptr rmw_client_t; gid: ptr rmw_gid_t): rmw_
                               ##
 
 proc rmw_compare_gids_equal*(gid1: ptr rmw_gid_t; gid2: ptr rmw_gid_t;
-                             result: ptr _Bool): rmw_ret_t {.
+                             result: ptr bool): rmw_ret_t {.
     importc: "rmw_compare_gids_equal", header: "rmw.h".}
   ##
                               ##  Check if two unique identifiers (gids) are equal.
@@ -3027,7 +3022,7 @@ proc rmw_compare_gids_equal*(gid1: ptr rmw_gid_t; gid2: ptr rmw_gid_t;
 
 proc rmw_service_server_is_available*(node: ptr rmw_node_t;
                                       client: ptr rmw_client_t;
-                                      is_available: ptr _Bool): rmw_ret_t {.
+                                      is_available: ptr bool): rmw_ret_t {.
     importc: "rmw_service_server_is_available", header: "rmw.h".}
   ##
                               ##  Check if a service server is available for the given service client.

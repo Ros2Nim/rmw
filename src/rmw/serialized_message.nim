@@ -20,25 +20,27 @@ import
   rcutils/visibility_control_macros, rcutils/visibility_control_macros,
   rcutils/visibility_control, rcutils/allocator, rcutils/types/uint8_array
 
-type
-
-  rmw_serialized_message_t* = rcutils_uint8_array_t ##
-                              ##
-                              ##  \brief Serialized message as a string of bytes.
-                              ##
-                              ##  It includes (but it is not limited to) the following members:
-                              ##    \e \c buffer the reference to internal storage, as a pointer
-                              ##    \e \c buffer_length the size of stored contents, as an unsigned integer
-                              ##    \e \c buffer_capacity the capacity of internal storage, as an unsigned integer
-                              ##
-                              ##  For now this is a simple aliasing from a serialized message to a uint8 array.
-                              ##  However, in future developments this serialized message can become something
-                              ##  more complex and is therefore aliased.
-                              ##
+##
+##  \brief Serialized message as a string of bytes.
+##
+##  It includes (but it is not limited to) the following members:
+##    \e \c buffer the reference to internal storage, as a pointer
+##    \e \c buffer_length the size of stored contents, as an unsigned integer
+##    \e \c buffer_capacity the capacity of internal storage, as an unsigned integer
+##
+##  For now this is a simple aliasing from a serialized message to a uint8 array.
+##  However, in future developments this serialized message can become something
+##  more complex and is therefore aliased.
+##
 
 const
-  rmw_get_zero_initialized_serialized_message* = rcutils_get_zero_initialized_uint8_array ##
-                              ##  Return a zero initialized serialized message struct.
+  rmw_get_zero_initialized_serialized_message* = rcutils_get_zero_initialized_uint8_array
+
+type
+
+  rmw_serialized_message_t* = rcutils_uint8_array_t
+
+##  Return a zero initialized serialized message struct.
 
 ##  Initialize a serialized message, zero initializing its contents.
 ##

@@ -20,7 +20,7 @@ imports:
     repl: "rstring$1"
 
   cSourceModifications:
-  - cSourceModification: "'u16string.h'"
+  - cSourceModification: "'qos_string_conversions.h'"
     c2NimConfigs:
     - rawNims: |
-        discard "test"
+        import types

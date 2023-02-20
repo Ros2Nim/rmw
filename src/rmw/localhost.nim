@@ -12,14 +12,12 @@
 ##  See the License for the specific language governing permissions and
 ##  limitations under the License.
 
-import
-  ./visibility_control, ./visibility_control
+##  Used to specify if the context can only communicate through localhost.
+
 
 type                        ##  Uses ROS_LOCALHOST_ONLY environment variable.
 
-  rmw_localhost_only_t* {.size: sizeof(cint).} = enum ##
-                              ##  Used to specify if the context can only communicate through localhost.
+  rmw_localhost_only_t* {.size: sizeof(cint).} = enum
     RMW_LOCALHOST_ONLY_DEFAULT = 0, ##  Forces using only localhost.
     RMW_LOCALHOST_ONLY_ENABLED = 1, ##  Forces disabling localhost only.
     RMW_LOCALHOST_ONLY_DISABLED = 2
-

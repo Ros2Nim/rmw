@@ -13,11 +13,10 @@
 ##  limitations under the License.
 
 import
-  ./macros, rcutils/macros, rcutils/macros, rcutils/macros, rcutils/macros,
-  rcutils/macros, ./macros, ./visibility_control, ./visibility_control, ./types,
-  ./types, ./types, ./types, rcutils/logging, rcutils/logging, rcutils/logging,
-  rcutils/allocator, rcutils/allocator, rcutils/types/rcutils_ret,
-  rcutils/allocator, rcutils/visibility_control,
+  rcutils/macros, rcutils/macros, rcutils/macros, rcutils/macros,
+  rcutils/macros, ./types, ./types, ./types, ./types, rcutils/logging,
+  rcutils/logging, rcutils/logging, rcutils/allocator, rcutils/allocator,
+  rcutils/types/rcutils_ret, rcutils/allocator, rcutils/visibility_control,
   rcutils/visibility_control_macros, rcutils/visibility_control_macros,
   rcutils/visibility_control, rcutils/allocator, rcutils/logging,
   rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
@@ -26,22 +25,21 @@ import
   rcutils/testing/fault_injection, rcutils/testing/fault_injection,
   rcutils/testing/fault_injection, rcutils/error_handling,
   rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
-  rcutils/logging, rcutils/time, rcutils/time, rcutils/types,
-  rcutils/types/array_list, rcutils/types/array_list, rcutils/types,
-  rcutils/types/char_array, rcutils/types/char_array, rcutils/types,
-  rcutils/types/hash_map, rcutils/types/hash_map, rcutils/types,
-  rcutils/types/string_array, rcutils/types/string_array, rcutils/qsort,
-  rcutils/qsort, rcutils/types/string_array, rcutils/types,
-  rcutils/types/string_map, rcutils/types/string_map, rcutils/types,
-  rcutils/types/uint8_array, rcutils/types/uint8_array, rcutils/types,
-  rcutils/time, rcutils/logging, ./types, ./events_statuses/events_statuses,
-  ./events_statuses/incompatible_qos, ./qos_policy_kind,
-  ./events_statuses/incompatible_qos, ./events_statuses/events_statuses,
-  ./events_statuses/liveliness_changed, ./events_statuses/liveliness_changed,
-  ./events_statuses/events_statuses, ./events_statuses/liveliness_lost,
-  ./events_statuses/liveliness_lost, ./events_statuses/events_statuses,
-  ./events_statuses/message_lost, ./events_statuses/message_lost,
-  ./events_statuses/events_statuses, ./events_statuses/offered_deadline_missed,
+  rcutils/logging, rcutils/types/array_list, rcutils/types/array_list,
+  rcutils/types/char_array, rcutils/types/char_array, rcutils/types/hash_map,
+  rcutils/types/hash_map, rcutils/types/string_array,
+  rcutils/types/string_array, rcutils/qsort, rcutils/qsort,
+  rcutils/types/string_array, rcutils/types/string_map,
+  rcutils/types/string_map, rcutils/types/uint8_array,
+  rcutils/types/uint8_array, rcutils/logging, ./types,
+  ./events_statuses/events_statuses, ./events_statuses/incompatible_qos,
+  ./qos_policy_kind, ./events_statuses/incompatible_qos,
+  ./events_statuses/events_statuses, ./events_statuses/liveliness_changed,
+  ./events_statuses/liveliness_changed, ./events_statuses/events_statuses,
+  ./events_statuses/liveliness_lost, ./events_statuses/liveliness_lost,
+  ./events_statuses/events_statuses, ./events_statuses/message_lost,
+  ./events_statuses/message_lost, ./events_statuses/events_statuses,
+  ./events_statuses/offered_deadline_missed,
   ./events_statuses/offered_deadline_missed, ./events_statuses/events_statuses,
   ./events_statuses/requested_deadline_missed,
   ./events_statuses/requested_deadline_missed,
@@ -65,8 +63,7 @@ type
 
 
   rmw_message_info_sequence_t* {.importc: "rmw_message_info_sequence_t",
-                                 header: "message_sequence.h", bycopy.} = object ##
-                              ##  Structure to hold a sequence of message infos.
+                                 header: "message_sequence.h", bycopy.} = object
     data* {.importc: "data".}: ptr rmw_message_info_t ##
                               ##  Array of message info.
     size* {.importc: "size".}: csize_t ##  The number of valid entries in data.
@@ -74,6 +71,8 @@ type
     allocator* {.importc: "allocator".}: ptr rcutils_allocator_t ##
                               ##  The allocator used to allocate the data array.
 
+
+##  Structure to hold a sequence of message infos.
 
 
 proc rmw_get_zero_initialized_message_sequence*(): rmw_message_sequence_t {.

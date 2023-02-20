@@ -26,17 +26,15 @@ import
   rcutils/snprintf, rcutils/error_handling, rcutils/testing/fault_injection,
   rcutils/testing/fault_injection, rcutils/testing/fault_injection,
   rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
-  rcutils/error_handling, rcutils/logging, rcutils/time, rcutils/time,
-  rcutils/types, rcutils/types/array_list, rcutils/types/array_list,
-  rcutils/types, rcutils/types/char_array, rcutils/types/char_array,
-  rcutils/types, rcutils/types/hash_map, rcutils/types/hash_map, rcutils/types,
-  rcutils/types/string_array, rcutils/types/string_array, rcutils/qsort,
-  rcutils/qsort, rcutils/types/string_array, rcutils/types,
-  rcutils/types/string_map, rcutils/types/string_map, rcutils/types,
-  rcutils/types/uint8_array, rcutils/types/uint8_array, rcutils/types,
-  rcutils/time, rcutils/logging, ./types, ./events_statuses/events_statuses,
-  ./events_statuses/incompatible_qos, ./qos_policy_kind, ./visibility_control,
-  ./visibility_control, ./qos_policy_kind, ./events_statuses/incompatible_qos,
+  rcutils/error_handling, rcutils/logging, rcutils/types/array_list,
+  rcutils/types/array_list, rcutils/types/char_array, rcutils/types/char_array,
+  rcutils/types/hash_map, rcutils/types/hash_map, rcutils/types/string_array,
+  rcutils/types/string_array, rcutils/qsort, rcutils/qsort,
+  rcutils/types/string_array, rcutils/types/string_map,
+  rcutils/types/string_map, rcutils/types/uint8_array,
+  rcutils/types/uint8_array, rcutils/logging, ./types,
+  ./events_statuses/events_statuses, ./events_statuses/incompatible_qos,
+  ./qos_policy_kind, ./qos_policy_kind, ./events_statuses/incompatible_qos,
   ./events_statuses/events_statuses, ./events_statuses/liveliness_changed,
   ./events_statuses/liveliness_changed, ./events_statuses/events_statuses,
   ./events_statuses/liveliness_lost, ./events_statuses/liveliness_lost,
@@ -48,7 +46,7 @@ import
   ./events_statuses/requested_deadline_missed,
   ./events_statuses/events_statuses, ./types, ./init, ./init_options,
   ./init_options, ./domain_id, ./init_options, ./localhost, ./init_options,
-  ./macros, ./init_options, ./ret_types, ./init_options, ./security_options,
+  ./init_options, ./ret_types, ./init_options, ./security_options,
   ./security_options, ./init_options, ./init, ./types, ./serialized_message,
   ./types, ./subscription_content_filter_options,
   ./subscription_content_filter_options, ./types, ./time, ./time, ./types,
@@ -57,7 +55,7 @@ import
 
 proc rmw_get_publishers_info_by_topic*(node: ptr rmw_node_t;
                                        allocator: ptr rcutils_allocator_t;
-                                       topic_name: cstring; no_mangle: _Bool;
+                                       topic_name: cstring; no_mangle: bool;
     publishers_info: ptr rmw_topic_endpoint_info_array_t): rmw_ret_t {.
     importc: "rmw_get_publishers_info_by_topic",
     header: "get_topic_endpoint_info.h".}
@@ -135,7 +133,7 @@ proc rmw_get_publishers_info_by_topic*(node: ptr rmw_node_t;
                                          ##
 
 proc rmw_get_subscriptions_info_by_topic*(node: ptr rmw_node_t;
-    allocator: ptr rcutils_allocator_t; topic_name: cstring; no_mangle: _Bool;
+    allocator: ptr rcutils_allocator_t; topic_name: cstring; no_mangle: bool;
     subscriptions_info: ptr rmw_topic_endpoint_info_array_t): rmw_ret_t {.
     importc: "rmw_get_subscriptions_info_by_topic",
     header: "get_topic_endpoint_info.h".}

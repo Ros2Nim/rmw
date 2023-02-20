@@ -18,9 +18,8 @@ import
   rcutils/allocator, rcutils/types/rcutils_ret, rcutils/allocator,
   rcutils/visibility_control, rcutils/visibility_control_macros,
   rcutils/visibility_control_macros, rcutils/visibility_control,
-  rcutils/allocator, ./domain_id, ./localhost, ./visibility_control,
-  ./visibility_control, ./localhost, ./macros, ./ret_types, ./security_options,
-  ./security_options
+  rcutils/allocator, ./domain_id, ./localhost, ./localhost, ./ret_types,
+  ./security_options, ./security_options
 
 type
 
@@ -31,7 +30,7 @@ type
                               ##
 
   rmw_init_options_t* {.importc: "rmw_init_options_t", header: "init_options.h",
-                        bycopy.} = object ##  Options structure used during rmw_init().
+                        bycopy.} = object
     instance_id* {.importc: "instance_id".}: uint64 ##
                               ##  Locally (process local) unique ID that represents this init/shutdown cycle.
                               ##
@@ -54,6 +53,8 @@ type
     impl* {.importc: "impl".}: ptr rmw_init_options_impl_t ##
                               ##  May be NULL if there are no implementation defined options.
 
+
+##  Options structure used during rmw_init().
 
 
 proc rmw_get_zero_initialized_init_options*(): rmw_init_options_t {.

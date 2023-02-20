@@ -19,9 +19,9 @@ import
   rcutils/allocator, rcutils/visibility_control,
   rcutils/visibility_control_macros, rcutils/visibility_control_macros,
   rcutils/visibility_control, rcutils/allocator, ./init_options, ./domain_id,
-  ./init_options, ./localhost, ./visibility_control, ./visibility_control,
-  ./localhost, ./init_options, ./macros, ./init_options, ./ret_types,
-  ./init_options, ./security_options, ./security_options, ./init_options
+  ./init_options, ./localhost, ./localhost, ./init_options, ./init_options,
+  ./ret_types, ./init_options, ./security_options, ./security_options,
+  ./init_options
 
 type
 
@@ -30,8 +30,7 @@ type
                                            ##  This should be defined by the rmw implementation.
                                            ##
 
-  rmw_context_t* {.importc: "rmw_context_t", header: "init.h", bycopy.} = object ##
-                              ##  Initialization context structure which is used to store init specific information.
+  rmw_context_t* {.importc: "rmw_context_t", header: "init.h", bycopy.} = object
     instance_id* {.importc: "instance_id".}: uint64 ##
                               ##  Locally (process local) unique ID that represents this init/shutdown cycle.
     implementation_identifier* {.importc: "implementation_identifier".}: cstring ##
@@ -44,6 +43,8 @@ type
     impl* {.importc: "impl".}: ptr rmw_context_impl_t ##
                               ##  May be NULL if there is no implementation defined context information.
 
+
+##  Initialization context structure which is used to store init specific information.
 
 
 proc rmw_get_zero_initialized_context*(): rmw_context_t {.

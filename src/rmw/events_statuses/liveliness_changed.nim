@@ -12,9 +12,6 @@
 ##  See the License for the specific language governing permissions and
 ##  limitations under the License.
 
-import
-  ./visibility_control, ./visibility_control
-
 type
 
   rmw_liveliness_changed_status_t* {.importc: "rmw_liveliness_changed_status_t",

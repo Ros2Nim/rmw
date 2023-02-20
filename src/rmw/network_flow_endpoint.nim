@@ -25,17 +25,15 @@ import
   rcutils/snprintf, rcutils/error_handling, rcutils/testing/fault_injection,
   rcutils/testing/fault_injection, rcutils/testing/fault_injection,
   rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
-  rcutils/error_handling, rcutils/logging, rcutils/time, rcutils/time,
-  rcutils/types, rcutils/types/array_list, rcutils/types/array_list,
-  rcutils/types, rcutils/types/char_array, rcutils/types/char_array,
-  rcutils/types, rcutils/types/hash_map, rcutils/types/hash_map, rcutils/types,
-  rcutils/types/string_array, rcutils/types/string_array, rcutils/qsort,
-  rcutils/qsort, rcutils/types/string_array, rcutils/types,
-  rcutils/types/string_map, rcutils/types/string_map, rcutils/types,
-  rcutils/types/uint8_array, rcutils/types/uint8_array, rcutils/types,
-  rcutils/time, rcutils/logging, ./types, ./events_statuses/events_statuses,
-  ./events_statuses/incompatible_qos, ./qos_policy_kind, ./visibility_control,
-  ./visibility_control, ./qos_policy_kind, ./events_statuses/incompatible_qos,
+  rcutils/error_handling, rcutils/logging, rcutils/types/array_list,
+  rcutils/types/array_list, rcutils/types/char_array, rcutils/types/char_array,
+  rcutils/types/hash_map, rcutils/types/hash_map, rcutils/types/string_array,
+  rcutils/types/string_array, rcutils/qsort, rcutils/qsort,
+  rcutils/types/string_array, rcutils/types/string_map,
+  rcutils/types/string_map, rcutils/types/uint8_array,
+  rcutils/types/uint8_array, rcutils/logging, ./types,
+  ./events_statuses/events_statuses, ./events_statuses/incompatible_qos,
+  ./qos_policy_kind, ./qos_policy_kind, ./events_statuses/incompatible_qos,
   ./events_statuses/events_statuses, ./events_statuses/liveliness_changed,
   ./events_statuses/liveliness_changed, ./events_statuses/events_statuses,
   ./events_statuses/liveliness_lost, ./events_statuses/liveliness_lost,
@@ -47,35 +45,29 @@ import
   ./events_statuses/requested_deadline_missed,
   ./events_statuses/events_statuses, ./types, ./init, ./init_options,
   ./init_options, ./domain_id, ./init_options, ./localhost, ./init_options,
-  ./macros, ./init_options, ./ret_types, ./init_options, ./security_options,
+  ./init_options, ./ret_types, ./init_options, ./security_options,
   ./security_options, ./init_options, ./init, ./types, ./serialized_message,
   ./types, ./subscription_content_filter_options,
   ./subscription_content_filter_options, ./types, ./time, ./time, ./types
 
+const
+  RMW_INET_ADDRSTRLEN* = 48  ##  Transport protocol types
+
 type
 
-  rmw_transport_protocol_t* {.size: sizeof(cint).} = enum ##
-                              ##  Transport protocol types
+  rmw_transport_protocol_t* {.size: sizeof(cint).} = enum
     RMW_TRANSPORT_PROTOCOL_UNKNOWN = 0, RMW_TRANSPORT_PROTOCOL_UDP,
     RMW_TRANSPORT_PROTOCOL_TCP, RMW_TRANSPORT_PROTOCOL_COUNT
 
-
-type
-
-  rmw_internet_protocol_t* {.size: sizeof(cint).} = enum ##
-                              ##  Internet protocol types
+  rmw_internet_protocol_t* {.size: sizeof(cint).} = enum
     RMW_INTERNET_PROTOCOL_UNKNOWN = 0, RMW_INTERNET_PROTOCOL_IPV4,
     RMW_INTERNET_PROTOCOL_IPV6, RMW_INTERNET_PROTOCOL_COUNT
 
-const
-  RMW_INET_ADDRSTRLEN* = 48 ##  Maximum length of internet address string including terminating null
-                            ##  Inspired from linux/inet.h
 
 type
 
   rmw_network_flow_endpoint_t* {.importc: "rmw_network_flow_endpoint_t",
-                                 header: "network_flow_endpoint.h", bycopy.} = object ##
-                              ##  Structure that describes network flow endpoint of a publisher or subscription
+                                 header: "network_flow_endpoint.h", bycopy.} = object
     transport_protocol* {.importc: "transport_protocol".}: rmw_transport_protocol_t ##
                               ##  Transport protocol
     internet_protocol* {.importc: "internet_protocol".}: rmw_internet_protocol_t ##
@@ -91,6 +83,13 @@ type
     internet_address* {.importc: "internet_address".}: array[48, char] ##
                               ##  Internet address
 
+
+##  Internet protocol types
+
+##  Maximum length of internet address string including terminating null
+##  Inspired from linux/inet.h
+
+##  Structure that describes network flow endpoint of a publisher or subscription
 
 
 proc rmw_get_zero_initialized_network_flow_endpoint*(): rmw_network_flow_endpoint_t {.

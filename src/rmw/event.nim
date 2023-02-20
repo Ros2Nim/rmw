@@ -18,24 +18,22 @@ import
   rcutils/allocator, rcutils/types/rcutils_ret, rcutils/allocator,
   rcutils/visibility_control, rcutils/visibility_control_macros,
   rcutils/visibility_control_macros, rcutils/visibility_control,
-  rcutils/allocator, ./macros, ./types, ./types, rcutils/logging,
-  rcutils/logging, rcutils/logging, rcutils/error_handling,
+  rcutils/allocator, ./types, ./types, rcutils/logging, rcutils/logging,
+  rcutils/logging, rcutils/error_handling, rcutils/error_handling,
   rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
-  rcutils/error_handling, rcutils/error_handling, rcutils/snprintf,
-  rcutils/snprintf, rcutils/error_handling, rcutils/testing/fault_injection,
+  rcutils/error_handling, rcutils/snprintf, rcutils/snprintf,
+  rcutils/error_handling, rcutils/testing/fault_injection,
   rcutils/testing/fault_injection, rcutils/testing/fault_injection,
   rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
-  rcutils/error_handling, rcutils/logging, rcutils/time, rcutils/time,
-  rcutils/types, rcutils/types/array_list, rcutils/types/array_list,
-  rcutils/types, rcutils/types/char_array, rcutils/types/char_array,
-  rcutils/types, rcutils/types/hash_map, rcutils/types/hash_map, rcutils/types,
-  rcutils/types/string_array, rcutils/types/string_array, rcutils/qsort,
-  rcutils/qsort, rcutils/types/string_array, rcutils/types,
-  rcutils/types/string_map, rcutils/types/string_map, rcutils/types,
-  rcutils/types/uint8_array, rcutils/types/uint8_array, rcutils/types,
-  rcutils/time, rcutils/logging, ./types, ./events_statuses/events_statuses,
-  ./events_statuses/incompatible_qos, ./qos_policy_kind, ./visibility_control,
-  ./visibility_control, ./qos_policy_kind, ./events_statuses/incompatible_qos,
+  rcutils/error_handling, rcutils/logging, rcutils/types/array_list,
+  rcutils/types/array_list, rcutils/types/char_array, rcutils/types/char_array,
+  rcutils/types/hash_map, rcutils/types/hash_map, rcutils/types/string_array,
+  rcutils/types/string_array, rcutils/qsort, rcutils/qsort,
+  rcutils/types/string_array, rcutils/types/string_map,
+  rcutils/types/string_map, rcutils/types/uint8_array,
+  rcutils/types/uint8_array, rcutils/logging, ./types,
+  ./events_statuses/events_statuses, ./events_statuses/incompatible_qos,
+  ./qos_policy_kind, ./qos_policy_kind, ./events_statuses/incompatible_qos,
   ./events_statuses/events_statuses, ./events_statuses/liveliness_changed,
   ./events_statuses/liveliness_changed, ./events_statuses/events_statuses,
   ./events_statuses/liveliness_lost, ./events_statuses/liveliness_lost,
@@ -52,10 +50,12 @@ import
   ./subscription_content_filter_options, ./subscription_content_filter_options,
   ./types, ./time, ./time, ./types
 
+##  Define publisher/subscription events
+
+
 type                        ##  subscription events
 
-  rmw_event_type_t* {.size: sizeof(cint).} = enum ##
-                              ##  Define publisher/subscription events
+  rmw_event_type_t* {.size: sizeof(cint).} = enum
     RMW_EVENT_LIVELINESS_CHANGED, RMW_EVENT_REQUESTED_DEADLINE_MISSED,
     RMW_EVENT_REQUESTED_QOS_INCOMPATIBLE, RMW_EVENT_MESSAGE_LOST, ##
                               ##  publisher events
@@ -66,14 +66,15 @@ type                        ##  subscription events
 
 type
 
-  rmw_event_t* {.importc: "rmw_event_t", header: "event.h", bycopy.} = object ##
-                              ##  Encapsulate the RMW event implementation, data, and type.
+  rmw_event_t* {.importc: "rmw_event_t", header: "event.h", bycopy.} = object
     implementation_identifier* {.importc: "implementation_identifier".}: cstring ##
                               ##  Implementation identifier, used to ensure two different implementations are not being mixed.
     data* {.importc: "data".}: pointer ##  Data specific to this event type from either the publisher or subscriber.
     event_type* {.importc: "event_type".}: rmw_event_type_t ##
                               ##  The event type that occurred.
 
+
+##  Encapsulate the RMW event implementation, data, and type.
 
 
 proc rmw_get_zero_initialized_event*(): rmw_event_t {.
@@ -114,7 +115,7 @@ proc rmw_subscription_event_init*(rmw_event: ptr rmw_event_t;
                               ##
 
 proc rmw_take_event*(event_handle: ptr rmw_event_t; event_info: pointer;
-                     taken: ptr _Bool): rmw_ret_t {.importc: "rmw_take_event",
+                     taken: ptr bool): rmw_ret_t {.importc: "rmw_take_event",
     header: "event.h".}
   ##  Take an event from the event handle.
                        ##

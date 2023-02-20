@@ -14,8 +14,7 @@
 
 import
   ./events_statuses/incompatible_qos, ./events_statuses/incompatible_qos,
-  ./qos_policy_kind, ./visibility_control, ./visibility_control,
-  ./qos_policy_kind, ./events_statuses/incompatible_qos,
+  ./qos_policy_kind, ./qos_policy_kind, ./events_statuses/incompatible_qos,
   ./events_statuses/liveliness_changed, ./events_statuses/liveliness_changed,
   ./events_statuses/liveliness_lost, ./events_statuses/liveliness_lost,
   ./events_statuses/message_lost, ./events_statuses/message_lost,

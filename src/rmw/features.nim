@@ -18,24 +18,22 @@ import
   rcutils/allocator, rcutils/types/rcutils_ret, rcutils/allocator,
   rcutils/visibility_control, rcutils/visibility_control_macros,
   rcutils/visibility_control_macros, rcutils/visibility_control,
-  rcutils/allocator, ./macros, ./types, ./types, rcutils/logging,
-  rcutils/logging, rcutils/logging, rcutils/error_handling,
+  rcutils/allocator, ./types, ./types, rcutils/logging, rcutils/logging,
+  rcutils/logging, rcutils/error_handling, rcutils/error_handling,
   rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
-  rcutils/error_handling, rcutils/error_handling, rcutils/snprintf,
-  rcutils/snprintf, rcutils/error_handling, rcutils/testing/fault_injection,
+  rcutils/error_handling, rcutils/snprintf, rcutils/snprintf,
+  rcutils/error_handling, rcutils/testing/fault_injection,
   rcutils/testing/fault_injection, rcutils/testing/fault_injection,
   rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
-  rcutils/error_handling, rcutils/logging, rcutils/time, rcutils/time,
-  rcutils/types, rcutils/types/array_list, rcutils/types/array_list,
-  rcutils/types, rcutils/types/char_array, rcutils/types/char_array,
-  rcutils/types, rcutils/types/hash_map, rcutils/types/hash_map, rcutils/types,
-  rcutils/types/string_array, rcutils/types/string_array, rcutils/qsort,
-  rcutils/qsort, rcutils/types/string_array, rcutils/types,
-  rcutils/types/string_map, rcutils/types/string_map, rcutils/types,
-  rcutils/types/uint8_array, rcutils/types/uint8_array, rcutils/types,
-  rcutils/time, rcutils/logging, ./types, ./events_statuses/events_statuses,
-  ./events_statuses/incompatible_qos, ./qos_policy_kind, ./visibility_control,
-  ./visibility_control, ./qos_policy_kind, ./events_statuses/incompatible_qos,
+  rcutils/error_handling, rcutils/logging, rcutils/types/array_list,
+  rcutils/types/array_list, rcutils/types/char_array, rcutils/types/char_array,
+  rcutils/types/hash_map, rcutils/types/hash_map, rcutils/types/string_array,
+  rcutils/types/string_array, rcutils/qsort, rcutils/qsort,
+  rcutils/types/string_array, rcutils/types/string_map,
+  rcutils/types/string_map, rcutils/types/uint8_array,
+  rcutils/types/uint8_array, rcutils/logging, ./types,
+  ./events_statuses/events_statuses, ./events_statuses/incompatible_qos,
+  ./qos_policy_kind, ./qos_policy_kind, ./events_statuses/incompatible_qos,
   ./events_statuses/events_statuses, ./events_statuses/liveliness_changed,
   ./events_statuses/liveliness_changed, ./events_statuses/events_statuses,
   ./events_statuses/liveliness_lost, ./events_statuses/liveliness_lost,
@@ -52,25 +50,27 @@ import
   ./subscription_content_filter_options, ./subscription_content_filter_options,
   ./types, ./time, ./time, ./types
 
+##  List of optional rmw features.
+##
+##  Some of the features listed here might become mandatory in the feature, in which case all rmw
+##  implementations should return `true`.
+##
+##  There might be some optional features that are not listed here, but the goal is to have all of
+##  them added.
+##
+
+
 type ##  `rmw_message_info_t.publication_sequence_number` is filled correctly
       ##  by the rmw implementation.
 
-  rmw_feature_t* {.size: sizeof(cint).} = enum ##  List of optional rmw features.
-                                                ##
-                                                ##  Some of the features listed here might become mandatory in the feature, in which case all rmw
-                                                ##  implementations should return `true`.
-                                                ##
-                                                ##  There might be some optional features that are not listed here, but the goal is to have all of
-                                                ##  them added.
-                                                ##
+  rmw_feature_t* {.size: sizeof(cint).} = enum
     RMW_FEATURE_MESSAGE_INFO_PUBLICATION_SEQUENCE_NUMBER = 0, ##
                               ##  `rmw_message_info_t.reception_sequence_number` is filled correctly
                               ##  by the rmw implementation.
     RMW_FEATURE_MESSAGE_INFO_RECEPTION_SEQUENCE_NUMBER = 1
 
 
-
-proc rmw_feature_supported*(feature: rmw_feature_t): _Bool {.
+proc rmw_feature_supported*(feature: rmw_feature_t): bool {.
     importc: "rmw_feature_supported", header: "features.h".}
   ##
                               ##  Query if a feature is supported by the rmw implementation.

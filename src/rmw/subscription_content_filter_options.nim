@@ -18,10 +18,9 @@ import
   rcutils/allocator, rcutils/types/rcutils_ret, rcutils/allocator,
   rcutils/visibility_control, rcutils/visibility_control_macros,
   rcutils/visibility_control_macros, rcutils/visibility_control,
-  rcutils/allocator, rcutils/types, rcutils/types/array_list,
-  rcutils/types/array_list, rcutils/types, rcutils/types/char_array,
-  rcutils/types/char_array, rcutils/types, rcutils/types/hash_map,
-  rcutils/types/hash_map, rcutils/types, rcutils/types/string_array,
+  rcutils/allocator, rcutils/types/array_list, rcutils/types/array_list,
+  rcutils/types/char_array, rcutils/types/char_array, rcutils/types/hash_map,
+  rcutils/types/hash_map, rcutils/types/string_array,
   rcutils/types/string_array, rcutils/error_handling, rcutils/error_handling,
   rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
   rcutils/error_handling, rcutils/error_handling, rcutils/snprintf,
@@ -29,10 +28,9 @@ import
   rcutils/testing/fault_injection, rcutils/testing/fault_injection,
   rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
   rcutils/error_handling, rcutils/types/string_array, rcutils/qsort,
-  rcutils/qsort, rcutils/types/string_array, rcutils/types,
-  rcutils/types/string_map, rcutils/types/string_map, rcutils/types,
-  rcutils/types/uint8_array, rcutils/types/uint8_array, rcutils/types, ./macros,
-  ./ret_types, ./visibility_control, ./visibility_control
+  rcutils/qsort, rcutils/types/string_array, rcutils/types/string_map,
+  rcutils/types/string_map, rcutils/types/uint8_array,
+  rcutils/types/uint8_array, ./ret_types
 
 type
 

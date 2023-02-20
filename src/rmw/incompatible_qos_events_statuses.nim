@@ -14,5 +14,4 @@
 
 import
   ./events_statuses/incompatible_qos, ./events_statuses/incompatible_qos,
-  ./qos_policy_kind, ./visibility_control, ./visibility_control,
-  ./qos_policy_kind, ./events_statuses/incompatible_qos
+  ./qos_policy_kind, ./qos_policy_kind, ./events_statuses/incompatible_qos

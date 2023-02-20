@@ -12,9 +12,6 @@
 ##  See the License for the specific language governing permissions and
 ##  limitations under the License.
 
-import
-  ./visibility_control, ./visibility_control
-
 type
 
   rmw_requested_deadline_missed_status_t* {.

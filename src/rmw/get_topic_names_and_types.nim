@@ -13,15 +13,14 @@
 ##  limitations under the License.
 
 import
-  ./macros, rcutils/macros, rcutils/macros, rcutils/macros, rcutils/macros,
-  rcutils/macros, ./macros, ./names_and_types, ./names_and_types,
-  rcutils/allocator, rcutils/allocator, rcutils/allocator,
-  rcutils/types/rcutils_ret, rcutils/allocator, rcutils/visibility_control,
+  rcutils/macros, rcutils/macros, rcutils/macros, rcutils/macros,
+  rcutils/macros, ./names_and_types, ./names_and_types, rcutils/allocator,
+  rcutils/allocator, rcutils/allocator, rcutils/types/rcutils_ret,
+  rcutils/allocator, rcutils/visibility_control,
   rcutils/visibility_control_macros, rcutils/visibility_control_macros,
   rcutils/visibility_control, rcutils/allocator, ./names_and_types,
-  rcutils/types, rcutils/types/array_list, rcutils/types/array_list,
-  rcutils/types, rcutils/types/char_array, rcutils/types/char_array,
-  rcutils/types, rcutils/types/hash_map, rcutils/types/hash_map, rcutils/types,
+  rcutils/types/array_list, rcutils/types/array_list, rcutils/types/char_array,
+  rcutils/types/char_array, rcutils/types/hash_map, rcutils/types/hash_map,
   rcutils/types/string_array, rcutils/types/string_array,
   rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
   rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
@@ -30,19 +29,17 @@ import
   rcutils/testing/fault_injection, rcutils/testing/fault_injection,
   rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
   rcutils/error_handling, rcutils/types/string_array, rcutils/qsort,
-  rcutils/qsort, rcutils/types/string_array, rcutils/types,
-  rcutils/types/string_map, rcutils/types/string_map, rcutils/types,
-  rcutils/types/uint8_array, rcutils/types/uint8_array, rcutils/types,
-  ./names_and_types, ./types, ./types, rcutils/logging, rcutils/time,
-  rcutils/time, rcutils/logging, ./types, ./events_statuses/events_statuses,
-  ./events_statuses/incompatible_qos, ./qos_policy_kind, ./visibility_control,
-  ./visibility_control, ./qos_policy_kind, ./events_statuses/incompatible_qos,
-  ./events_statuses/events_statuses, ./events_statuses/liveliness_changed,
-  ./events_statuses/liveliness_changed, ./events_statuses/events_statuses,
-  ./events_statuses/liveliness_lost, ./events_statuses/liveliness_lost,
-  ./events_statuses/events_statuses, ./events_statuses/message_lost,
-  ./events_statuses/message_lost, ./events_statuses/events_statuses,
-  ./events_statuses/offered_deadline_missed,
+  rcutils/qsort, rcutils/types/string_array, rcutils/types/string_map,
+  rcutils/types/string_map, rcutils/types/uint8_array,
+  rcutils/types/uint8_array, ./names_and_types, ./types, ./types,
+  rcutils/logging, rcutils/logging, ./types, ./events_statuses/events_statuses,
+  ./events_statuses/incompatible_qos, ./qos_policy_kind, ./qos_policy_kind,
+  ./events_statuses/incompatible_qos, ./events_statuses/events_statuses,
+  ./events_statuses/liveliness_changed, ./events_statuses/liveliness_changed,
+  ./events_statuses/events_statuses, ./events_statuses/liveliness_lost,
+  ./events_statuses/liveliness_lost, ./events_statuses/events_statuses,
+  ./events_statuses/message_lost, ./events_statuses/message_lost,
+  ./events_statuses/events_statuses, ./events_statuses/offered_deadline_missed,
   ./events_statuses/offered_deadline_missed, ./events_statuses/events_statuses,
   ./events_statuses/requested_deadline_missed,
   ./events_statuses/requested_deadline_missed,
@@ -56,7 +53,7 @@ import
 
 proc rmw_get_topic_names_and_types*(node: ptr rmw_node_t;
                                     allocator: ptr rcutils_allocator_t;
-                                    no_demangle: _Bool; topic_names_and_types: ptr rmw_names_and_types_t): rmw_ret_t {.
+                                    no_demangle: bool; topic_names_and_types: ptr rmw_names_and_types_t): rmw_ret_t {.
     importc: "rmw_get_topic_names_and_types",
     header: "get_topic_names_and_types.h".}
   ##  Return all topic names and types in the ROS graph.

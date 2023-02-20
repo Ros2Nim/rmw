@@ -13,8 +13,8 @@
 ##  limitations under the License.
 
 import
-  ./macros, rcutils/macros, rcutils/macros, rcutils/macros, rcutils/macros,
-  rcutils/macros, ./macros, ./types, ./types, ./types, ./types, rcutils/logging,
+  rcutils/macros, rcutils/macros, rcutils/macros, rcutils/macros,
+  rcutils/macros, ./types, ./types, ./types, ./types, rcutils/logging,
   rcutils/logging, rcutils/logging, rcutils/allocator, rcutils/allocator,
   rcutils/types/rcutils_ret, rcutils/allocator, rcutils/visibility_control,
   rcutils/visibility_control_macros, rcutils/visibility_control_macros,
@@ -25,17 +25,15 @@ import
   rcutils/testing/fault_injection, rcutils/testing/fault_injection,
   rcutils/testing/fault_injection, rcutils/error_handling,
   rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
-  rcutils/logging, rcutils/time, rcutils/time, rcutils/types,
-  rcutils/types/array_list, rcutils/types/array_list, rcutils/types,
-  rcutils/types/char_array, rcutils/types/char_array, rcutils/types,
-  rcutils/types/hash_map, rcutils/types/hash_map, rcutils/types,
-  rcutils/types/string_array, rcutils/types/string_array, rcutils/qsort,
-  rcutils/qsort, rcutils/types/string_array, rcutils/types,
-  rcutils/types/string_map, rcutils/types/string_map, rcutils/types,
-  rcutils/types/uint8_array, rcutils/types/uint8_array, rcutils/types,
-  rcutils/time, rcutils/logging, ./types, ./events_statuses/events_statuses,
-  ./events_statuses/incompatible_qos, ./qos_policy_kind, ./visibility_control,
-  ./visibility_control, ./qos_policy_kind, ./events_statuses/incompatible_qos,
+  rcutils/logging, rcutils/types/array_list, rcutils/types/array_list,
+  rcutils/types/char_array, rcutils/types/char_array, rcutils/types/hash_map,
+  rcutils/types/hash_map, rcutils/types/string_array,
+  rcutils/types/string_array, rcutils/qsort, rcutils/qsort,
+  rcutils/types/string_array, rcutils/types/string_map,
+  rcutils/types/string_map, rcutils/types/uint8_array,
+  rcutils/types/uint8_array, rcutils/logging, ./types,
+  ./events_statuses/events_statuses, ./events_statuses/incompatible_qos,
+  ./qos_policy_kind, ./qos_policy_kind, ./events_statuses/incompatible_qos,
   ./events_statuses/events_statuses, ./events_statuses/liveliness_changed,
   ./events_statuses/liveliness_changed, ./events_statuses/events_statuses,
   ./events_statuses/liveliness_lost, ./events_statuses/liveliness_lost,
@@ -66,7 +64,7 @@ const
                               ##  An additional 2 characters are reserved for the shortest possible topic, e.g. '/X'.
 
 
-proc rmw_validate_namespace*(namespace_: cstring; validation_result: ptr cint;
+proc rmw_validate_namespace*(namespace: cstring; validation_result: ptr cint;
                              invalid_index: ptr csize_t): rmw_ret_t {.
     importc: "rmw_validate_namespace", header: "validate_namespace.h".}
   ##
@@ -124,8 +122,8 @@ proc rmw_validate_namespace*(namespace_: cstring; validation_result: ptr cint;
                               ##  \returns `RMW_RET_ERROR` when an unspecified error occurs.
                               ##
 
-proc rmw_validate_namespace_with_size*(namespace_: cstring;
-                                       namespace_length: csize_t;
+proc rmw_validate_namespace_with_size*(namespace: cstring;
+                                       namespacelength: csize_t;
                                        validation_result: ptr cint;
                                        invalid_index: ptr csize_t): rmw_ret_t {.
     importc: "rmw_validate_namespace_with_size", header: "validate_namespace.h".}

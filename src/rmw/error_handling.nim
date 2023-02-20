@@ -33,68 +33,83 @@ import
   rcutils/testing/fault_injection, rcutils/error_handling,
   rcutils/error_handling, rcutils/error_handling, rcutils/error_handling
 
+##  Struct wrapping a fixed-size c string used for returning the formatted error string.
+
+
 type
 
-  rmw_error_string_t* = rcutils_error_string_t ##  Struct wrapping a fixed-size c string used for returning the formatted error string.
-
-  rmw_error_state_t* = rcutils_error_state_t ##  Struct which encapsulates the error state set by RMW_SET_ERROR_MSG().
+  rmw_error_string_t* = rcutils_error_string_t
 
 const
-  RMW_SAFE_FWRITE_TO_STDERR* = RCUTILS_SAFE_FWRITE_TO_STDERR ##
-                              ##  Limit the buffer size in the `fwrite` call to give an upper bound to buffer overrun in the case
-                              ##  of non-null terminated `msg`.
-  rmw_initialize_error_handling_thread_local_storage* = rcutils_initialize_error_handling_thread_local_storage ##
-                              ##  Forces initialization of thread-local storage if called in a newly created thread.
-                              ##
-                              ##  If this function is not called beforehand, then the first time the error
-                              ##  state is set or the first time the error message is retrieved, the default
-                              ##  allocator will be used to allocate thread-local storage.
-                              ##
-                              ##  This function may or may not allocate memory.
-                              ##  The system's thread-local storage implementation may need to allocate
-                              ##  memory, since it usually has no way of knowing how much storage is needed
-                              ##  without knowing how many threads will be created.
-                              ##  Most implementations (e.g. C11, C++11, and pthread) do not have ways to
-                              ##  specify how this memory is allocated, but if the implementation allows, the
-                              ##  given allocator to this function will be used, but is otherwise unused.
-                              ##  This only occurs when creating and destroying threads, which can be avoided
-                              ##  in the "steady" state by reusing pools of threads.
-                              ##
-                              ##  It is worth considering that repeated thread creation and destruction will
-                              ##  result in repeated memory allocations and could result in memory
-                              ##  fragmentation.
-                              ##  This is typically avoided anyways by using pools of threads.
-                              ##
-                              ##  In case an error is indicated by the return code, no error message will have
-                              ##  been set.
-                              ##
-                              ##  If called more than once in a thread, or after implicitly initialized by
-                              ##  setting the error state, it will still return `RCUTILS_RET_OK`, even
-                              ##  if the given allocator is invalid.
-                              ##  Essentially this function does nothing if thread-local storage has already
-                              ##  been called.
-                              ##  If already initialized, the given allocator is ignored, even if it does not
-                              ##  match the allocator used originally to initialize the thread-local storage.
-                              ##
-                              ##  \return `RCUTILS_RET_OK` if successful, or
-                              ##  \return `RCUTILS_RET_INVALID_ARGUMENT` if the allocator is invalid, or
-                              ##  \return `RCUTILS_RET_BAD_ALLOC` if allocating memory fails, or
-                              ##  \return `RCUTILS_RET_ERROR` if an unspecified error occurs.
-                              ##
-  rmw_set_error_state* = rcutils_set_error_state ##  Set the error message, as well as the file and line on which it occurred.
-                                                 ##
-                                                 ##  This is not meant to be used directly, but instead via the
-                                                 ##  RMW_SET_ERROR_MSG(msg) macro.
-                                                 ##
-                                                 ##  The error_msg parameter is copied into the internal error storage and must
-                                                 ##  be null terminated.
-                                                 ##  The file parameter is copied into the internal error storage and must
-                                                 ##  be null terminated.
-                                                 ##
-                                                 ##  \param[in] error_string The error message to set.
-                                                 ##  \param[in] file The path to the file in which the error occurred.
-                                                 ##  \param[in] line_number The line number on which the error occurred.
-                                                 ##
+  RMW_SAFE_FWRITE_TO_STDERR* = RCUTILS_SAFE_FWRITE_TO_STDERR
+  rmw_initialize_error_handling_thread_local_storage* = rcutils_initialize_error_handling_thread_local_storage
+  rmw_set_error_state* = rcutils_set_error_state
+  rmw_error_is_set* = rcutils_error_is_set
+  rmw_get_error_state* = rcutils_get_error_state
+  rmw_get_error_string* = rcutils_get_error_string
+  rmw_reset_error* = rcutils_reset_error
+
+type
+
+  rmw_error_state_t* = rcutils_error_state_t
+
+##  Struct which encapsulates the error state set by RMW_SET_ERROR_MSG().
+
+##  Limit the buffer size in the `fwrite` call to give an upper bound to buffer overrun in the case
+##  of non-null terminated `msg`.
+
+##  Forces initialization of thread-local storage if called in a newly created thread.
+##
+##  If this function is not called beforehand, then the first time the error
+##  state is set or the first time the error message is retrieved, the default
+##  allocator will be used to allocate thread-local storage.
+##
+##  This function may or may not allocate memory.
+##  The system's thread-local storage implementation may need to allocate
+##  memory, since it usually has no way of knowing how much storage is needed
+##  without knowing how many threads will be created.
+##  Most implementations (e.g. C11, C++11, and pthread) do not have ways to
+##  specify how this memory is allocated, but if the implementation allows, the
+##  given allocator to this function will be used, but is otherwise unused.
+##  This only occurs when creating and destroying threads, which can be avoided
+##  in the "steady" state by reusing pools of threads.
+##
+##  It is worth considering that repeated thread creation and destruction will
+##  result in repeated memory allocations and could result in memory
+##  fragmentation.
+##  This is typically avoided anyways by using pools of threads.
+##
+##  In case an error is indicated by the return code, no error message will have
+##  been set.
+##
+##  If called more than once in a thread, or after implicitly initialized by
+##  setting the error state, it will still return `RCUTILS_RET_OK`, even
+##  if the given allocator is invalid.
+##  Essentially this function does nothing if thread-local storage has already
+##  been called.
+##  If already initialized, the given allocator is ignored, even if it does not
+##  match the allocator used originally to initialize the thread-local storage.
+##
+##  \return `RCUTILS_RET_OK` if successful, or
+##  \return `RCUTILS_RET_INVALID_ARGUMENT` if the allocator is invalid, or
+##  \return `RCUTILS_RET_BAD_ALLOC` if allocating memory fails, or
+##  \return `RCUTILS_RET_ERROR` if an unspecified error occurs.
+##
+
+##  Set the error message, as well as the file and line on which it occurred.
+##
+##  This is not meant to be used directly, but instead via the
+##  RMW_SET_ERROR_MSG(msg) macro.
+##
+##  The error_msg parameter is copied into the internal error storage and must
+##  be null terminated.
+##  The file parameter is copied into the internal error storage and must
+##  be null terminated.
+##
+##  \param[in] error_string The error message to set.
+##  \param[in] file The path to the file in which the error occurred.
+##  \param[in] line_number The line number on which the error occurred.
+##
 
 ##  Check an argument for a null value.
 ##
@@ -136,29 +151,30 @@ const
 ##  \param[in] ... Arguments for the format string.
 ##
 
-const
-  rmw_error_is_set* = rcutils_error_is_set ##  Return `true` if the error is set, otherwise `false`.
-                                           ##
-                                           ##  This is currently defines as `rcutils_error_is_set`
-                                           ##
-  rmw_get_error_state* = rcutils_get_error_state ##  Return an rcutils_error_state_t which was set with rcutils_set_error_state().
-                                                 ##
-                                                 ##  The returned pointer will be NULL if no error has been set in this thread.
-                                                 ##
-                                                 ##  The returned pointer is valid until RCUTILS_SET_ERROR_MSG, rcutils_set_error_state,
-                                                 ##  or rcutils_reset_error are called in the same thread.
-                                                 ##
-                                                 ##  \return A pointer to the current error state struct.
-                                                 ##
-  rmw_get_error_string* = rcutils_get_error_string ##
-                              ##  Return the error message followed by `, at <file>:<line>` if set, else "error not set".
-                              ##
-                              ##  This function is "safe" because it returns a copy of the current error
-                              ##  string or one containing the string "error not set" if no error was set.
-                              ##  This ensures that the copy is owned by the calling thread and is therefore
-                              ##  never invalidated by other error handling calls, and that the C string
-                              ##  inside is always valid and null terminated.
-                              ##
-                              ##  \return The current error string, with file and line number, or "error not set" if not set.
-                              ##
-  rmw_reset_error* = rcutils_reset_error ##  Reset the error state by clearing any previously set error state.
+##  Return `true` if the error is set, otherwise `false`.
+##
+##  This is currently defines as `rcutils_error_is_set`
+##
+
+##  Return an rcutils_error_state_t which was set with rcutils_set_error_state().
+##
+##  The returned pointer will be NULL if no error has been set in this thread.
+##
+##  The returned pointer is valid until RCUTILS_SET_ERROR_MSG, rcutils_set_error_state,
+##  or rcutils_reset_error are called in the same thread.
+##
+##  \return A pointer to the current error state struct.
+##
+
+##  Return the error message followed by `, at <file>:<line>` if set, else "error not set".
+##
+##  This function is "safe" because it returns a copy of the current error
+##  string or one containing the string "error not set" if no error was set.
+##  This ensures that the copy is owned by the calling thread and is therefore
+##  never invalidated by other error handling calls, and that the C string
+##  inside is always valid and null terminated.
+##
+##  \return The current error string, with file and line number, or "error not set" if not set.
+##
+
+##  Reset the error state by clearing any previously set error state.

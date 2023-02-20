@@ -17,8 +17,8 @@ import
   rcutils/macros, rcutils/macros, rcutils/macros, rcutils/allocator,
   rcutils/types/rcutils_ret, rcutils/allocator, rcutils/visibility_control,
   rcutils/visibility_control_macros, rcutils/visibility_control_macros,
-  rcutils/visibility_control, rcutils/allocator, ./ret_types, ./ret_types,
-  ./visibility_control, ./visibility_control
+  rcutils/visibility_control, rcutils/allocator, ./ret_types, ./ret_types
+
 
 type
 
@@ -29,7 +29,6 @@ type
                             header: "security_options.h", bycopy.} = object
     enforce_security* {.importc: "enforce_security".}: rmw_security_enforcement_policy_t
     security_root_path* {.importc: "security_root_path".}: cstring
-
 
 
 

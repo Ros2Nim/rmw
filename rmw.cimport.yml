@@ -1,17 +1,17 @@
 imports:
 
-- name: "rcl"
-  sources: "deps/rcl/rcl/include"
+- name: "rmw"
+  sources: "deps/rmw/rmw/include"
   globs: ["**/*.h"]
   includes: [
-    "deps/rcutils/include",
     "deps/rmw/rmw/include",
-    "deps/rcl/rcl/include",
+    "deps/rcutils/include",
+    # "deps/rcl/rcl/include",
     "deps/rosidl/rosidl_runtime_c/include",
     "deps/rosidl/rosidl_typesupport_interface/include",
-    "deps/rcl/rcl_action/include",
-    "deps/rcl/rcl_lifecycle/include",
-    "deps/rcl/rcl_yaml_param_parser/include",
+    # "deps/rcl/rcl_action/include",
+    # "deps/rcl/rcl_lifecycle/include",
+    # "deps/rcl/rcl_yaml_param_parser/include",
     ]
   defines: []
   skips: []

@@ -49,4 +49,4 @@ import
   ./security_options, ./init_options, ./init, ./types, ./serialized_message,
   ./types, ./subscription_content_filter_options,
   ./subscription_content_filter_options, ./types, ./time, ./time, ./types,
-  ./allocators, ./error_handling, ./impl/config
+  ./allocators, ./impl/config

@@ -1,0 +1,30 @@
+import ants/language_v1
+import cimporter/configs
+
+antExport ImporterConfig:
+  cimports:list:
+    - ImportConfig:
+      name: "rmw"
+      sources: "deps/rmw/rmw/include"
+      globs: ["**/*.h"]
+      includes:list:
+        "deps/rmw/rmw/include"
+        "deps/rcutils/include"
+        "deps/rosidl/rosidl_runtime_c/include"
+        "deps/rosidl/rosidl_typesupport_interface/include"
+      defines: []
+      skipFiles: []
+      renameFiles:list:
+        - Replace:
+          pattern: peg"^'string.' .+"
+          repl: "rstring$1"
+
+      sourceMods:list:
+        - CSrcMods:
+          fileMatch: peg"'qos_string_conversions.h'"
+      
+      c2nimCfgs:list:
+        - C2NimCfg:
+          rawNims: str"""
+              import types
+              """

@@ -25,10 +25,12 @@ import
 
 type
 
-  rmw_context_impl_t* = rmw_context_impl_s ##  Implementation defined context structure returned by rmw_init().
-                                           ##
-                                           ##  This should be defined by the rmw implementation.
-                                           ##
+  rmw_context_impl_t* {.importc: "rmw_context_impl_t", header: "init.h", bycopy.} = object ##
+                              ##  Implementation defined context structure returned by rmw_init().
+                              ##
+                              ##  This should be defined by the rmw implementation.
+                              ##
+
 
   rmw_context_t* {.importc: "rmw_context_t", header: "init.h", bycopy.} = object
     instance_id* {.importc: "instance_id".}: uint64 ##

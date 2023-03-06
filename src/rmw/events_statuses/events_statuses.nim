@@ -13,12 +13,8 @@
 ##  limitations under the License.
 
 import
-  ./events_statuses/incompatible_qos, ./events_statuses/incompatible_qos,
-  ./qos_policy_kind, ./qos_policy_kind, ./events_statuses/incompatible_qos,
-  ./events_statuses/liveliness_changed, ./events_statuses/liveliness_changed,
-  ./events_statuses/liveliness_lost, ./events_statuses/liveliness_lost,
-  ./events_statuses/message_lost, ./events_statuses/message_lost,
-  ./events_statuses/offered_deadline_missed,
-  ./events_statuses/offered_deadline_missed,
-  ./events_statuses/requested_deadline_missed,
-  ./events_statuses/requested_deadline_missed
+  ./incompatible_qos, ./incompatible_qos, ../qos_policy_kind,
+  ../qos_policy_kind, ./incompatible_qos, ./liveliness_changed,
+  ./liveliness_changed, ./liveliness_lost, ./liveliness_lost, ./message_lost,
+  ./message_lost, ./offered_deadline_missed, ./offered_deadline_missed,
+  ./requested_deadline_missed, ./requested_deadline_missed

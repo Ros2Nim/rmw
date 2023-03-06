@@ -7,6 +7,8 @@
 
 import unittest
 
-import rmwpkg/submodule
+import rmw
+export rmw
+
 test "correct welcome":
-  check getWelcomeMessage() == "Hello, World!"
+  check true

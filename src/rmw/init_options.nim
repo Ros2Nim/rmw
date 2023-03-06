@@ -23,11 +23,13 @@ import
 
 type
 
-  rmw_init_options_impl_t* = rmw_init_options_impl_s ##
+  rmw_init_options_impl_t* {.importc: "rmw_init_options_impl_t",
+                             header: "init_options.h", bycopy.} = object ##
                               ##  Implementation defined options structure used during rmw_init().
                               ##
                               ##  This should be defined by the rmw implementation.
                               ##
+
 
   rmw_init_options_t* {.importc: "rmw_init_options_t", header: "init_options.h",
                         bycopy.} = object

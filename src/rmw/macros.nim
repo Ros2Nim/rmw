@@ -17,6 +17,3 @@ import
 
 ##  Expand the argument to its literal text
 
-const
-  RMW_WARN_UNUSED* = RCUTILS_WARN_UNUSED ##  Indicate that the caller of a method must check the return value,
-                                         ##  otherwise the compiler will issue a warning.

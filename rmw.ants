@@ -22,9 +22,39 @@ antExport ImporterConfig:
       sourceMods:list:
         - CSrcMods:
           fileMatch: peg"'qos_string_conversions.h'"
-      
+
+        - CSrcMods:
+          fileMatch: peg"'init_options.h'"
+          substitutes:list:
+            - Replace:
+              pattern: peg"'typedef struct rmw_init_options_impl_s'"
+              repl: "typedef struct rmw_init_options_impl_s {}"
+        - CSrcMods:
+          fileMatch: peg"'init.h'"
+          substitutes:list:
+            - Replace:
+              pattern: peg"'typedef struct rmw_context_impl_s'"
+              repl: "typedef struct rmw_context_impl_s {}"
+
       c2nimCfgs:list:
         - C2NimCfg:
+          fileMatch: peg"'events_statuses/' \ident+ '.h' "
+          fileContents: str"""
+              #mangle "'./qos_policy_kind'" "../qos_policy_kind"
+              #mangle "'./events_statuses/'" "./"
+              """
+        - C2NimCfg:
+          fileMatch: peg"'domain_id.h'"
+          fileContents: str"""
+              #mangle "'SIZE_MAX'" "uint64.high"
+              """
+        - C2NimCfg:
+          fileMatch: peg"'time.h'"
           rawNims: str"""
-              import types
+              import rcutils/time
+              """
+        - C2NimCfg:
+          fileMatch: peg"'macros.h'"
+          fileContents: str"""
+              #delete RMW_WARN_UNUSED
               """

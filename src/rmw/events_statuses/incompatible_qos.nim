@@ -13,7 +13,7 @@
 ##  limitations under the License.
 
 import
-  ./qos_policy_kind, ./qos_policy_kind
+  ../qos_policy_kind, ../qos_policy_kind
 
 type
 

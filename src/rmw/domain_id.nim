@@ -13,4 +13,4 @@
 ##  limitations under the License.
 
 const
-  RMW_DEFAULT_DOMAIN_ID* = SIZE_MAX ##  Default domain id.
+  RMW_DEFAULT_DOMAIN_ID* = uint64.high ##  Default domain id.

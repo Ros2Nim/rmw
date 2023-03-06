@@ -67,8 +67,7 @@ type
                               ##  Name of the rmw implementation
     data* {.importc: "data".}: pointer ##  Type erased pointer to this node's data
     name* {.importc: "name".}: cstring ##  A concise name of this rmw node for identification
-    namespace_* {.importc: "namespace_".}: cstring ##
-                              ##  The namespace of this rmw node
+    namespace* {.importc: "namespace_".}: cstring ##  The namespace of this rmw node
     context* {.importc: "context".}: ptr rmw_context_t ##
                               ##  Context information about node's init specific information
 
@@ -383,13 +382,13 @@ type
     durability* {.importc: "durability".}: rmw_qos_durability_policy_t ##
                               ##  Durability QoS policy setting
     ##  The period at which messages are expected to be sent/received
-    deadline* {.importc: "deadline".}: rmw_time_s ##
+    deadline* {.importc: "deadline".}: rmw_time_t ##
                                                   ##  RMW_DURATION_UNSPEFICIED will use the RMW implementation's default value,
                                                   ##    which may or may not be infinite.
                                                   ##  RMW_DURATION_INFINITE explicitly states that messages never miss a deadline expectation.
                                                   ##
     ##  The age at which messages are considered expired and no longer valid
-    lifespan* {.importc: "lifespan".}: rmw_time_s ##
+    lifespan* {.importc: "lifespan".}: rmw_time_t ##
                                                   ##  RMW_DURATION_UNSPEFICIED will use the RMW implementation's default value,
                                                   ##    which may or may not be infinite.
                                                   ##  RMW_DURATION_INFINITE explicitly states that messages do not expire.
@@ -397,7 +396,7 @@ type
     liveliness* {.importc: "liveliness".}: rmw_qos_liveliness_policy_t ##
                               ##  Liveliness QoS policy setting
     ##  The time within which the RMW node or publisher must show that it is alive
-    liveliness_lease_duration* {.importc: "liveliness_lease_duration".}: rmw_time_s ##
+    liveliness_lease_duration* {.importc: "liveliness_lease_duration".}: rmw_time_t ##
                               ##
                               ##  RMW_DURATION_UNSPEFICIED will use the RMW implementation's default value,
                               ##    which may or may not be infinite.

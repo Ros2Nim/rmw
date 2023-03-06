@@ -153,7 +153,7 @@ proc rmw_get_serialization_format*(): cstring {.
                               ##
 
 proc rmw_create_node*(context: ptr rmw_context_t; name: cstring;
-                      namespace_: cstring): ptr rmw_node_t {.
+                      namespace: cstring): ptr rmw_node_t {.
     importc: "rmw_create_node", header: "rmw.h".}
   ##  TODO(wjwwood): refactor this API to return a return code when updated to use an allocator
                                                  ##  Create a node and return a handle to that node.

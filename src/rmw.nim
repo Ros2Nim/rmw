@@ -98,4 +98,4 @@ export
   validate_full_topic_name,
   validate_namespace,
   validate_node_name,
-  visibility_control,
+  visibility_control

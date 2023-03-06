@@ -67,7 +67,7 @@ const
                               ##  An additional 2 characters are reserved for the shortest possible topic, e.g. '/X'.
 
 
-proc rmw_validate_namespace*(namespace_: cstring; validation_result: ptr cint;
+proc rmw_validate_namespace*(namespace: cstring; validation_result: ptr cint;
                              invalid_index: ptr csize_t): rmw_ret_t {.
     importc: "rmw_validate_namespace", header: "validate_namespace.h".}
   ##
@@ -125,7 +125,7 @@ proc rmw_validate_namespace*(namespace_: cstring; validation_result: ptr cint;
                               ##  \returns `RMW_RET_ERROR` when an unspecified error occurs.
                               ##
 
-proc rmw_validate_namespace_with_size*(namespace_: cstring;
+proc rmw_validate_namespace_with_size*(namespace: cstring;
                                        namespace_length: csize_t;
                                        validation_result: ptr cint;
                                        invalid_index: ptr csize_t): rmw_ret_t {.

@@ -1,3 +1,7 @@
+##  #pragma c2nim mangle "'rosidl_runtime_c__' {\\w+}" "$1"
+##  #pragma c2nim mangle "'namespace_'" "namespace"
+##  #pragma c2nim mangle "'rmw_time_s'" "rmw_time_t"
+
 ##  Copyright 2014-2018 Open Source Robotics Foundation, Inc.
 ##
 ##  Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,12 +20,11 @@ import
   ./init_options, rcutils/allocator, rcutils/allocator, rcutils/allocator,
   rcutils/macros, rcutils/macros, rcutils/macros, rcutils/macros,
   rcutils/macros, rcutils/allocator, rcutils/types/rcutils_ret,
-  rcutils/allocator, rcutils/visibility_control,
-  rcutils/visibility_control_macros, rcutils/visibility_control_macros,
-  rcutils/visibility_control, rcutils/allocator, ./init_options, ./domain_id,
-  ./init_options, ./localhost, ./localhost, ./init_options, ./init_options,
-  ./ret_types, ./init_options, ./security_options, ./security_options,
-  ./init_options
+  rcutils/allocator, rcutils/visibility_control_macros,
+  rcutils/visibility_control_macros, rcutils/allocator, ./init_options,
+  ./domain_id, ./init_options, ./localhost, ./localhost, ./init_options,
+  ./init_options, ./ret_types, ./init_options, ./security_options,
+  ./security_options, ./init_options
 
 type
 

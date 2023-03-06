@@ -1,3 +1,7 @@
+##  #pragma c2nim mangle "'rosidl_runtime_c__' {\\w+}" "$1"
+##  #pragma c2nim mangle "'namespace_'" "namespace"
+##  #pragma c2nim mangle "'rmw_time_s'" "rmw_time_t"
+
 ##  Copyright 2017 Open Source Robotics Foundation, Inc.
 ##
 ##  Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,18 +20,17 @@ import
   rcutils/macros, rcutils/macros, rcutils/macros, rcutils/macros,
   rcutils/macros, ./types, ./types, ./types, ./types, rcutils/logging,
   rcutils/logging, rcutils/logging, rcutils/allocator, rcutils/allocator,
-  rcutils/types/rcutils_ret, rcutils/allocator, rcutils/visibility_control,
+  rcutils/types/rcutils_ret, rcutils/allocator,
   rcutils/visibility_control_macros, rcutils/visibility_control_macros,
-  rcutils/visibility_control, rcutils/allocator, rcutils/logging,
+  rcutils/allocator, rcutils/logging, rcutils/error_handling,
   rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
-  rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
-  rcutils/snprintf, rcutils/snprintf, rcutils/error_handling,
+  rcutils/error_handling, rcutils/error_handling, rcutils/snprintf,
+  rcutils/snprintf, rcutils/error_handling, rcutils/testing/fault_injection,
   rcutils/testing/fault_injection, rcutils/testing/fault_injection,
-  rcutils/testing/fault_injection, rcutils/error_handling,
   rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
-  rcutils/logging, rcutils/types/array_list, rcutils/types/array_list,
-  rcutils/types/char_array, rcutils/types/char_array, rcutils/types/hash_map,
-  rcutils/types/hash_map, rcutils/types/string_array,
+  rcutils/error_handling, rcutils/logging, rcutils/types/array_list,
+  rcutils/types/array_list, rcutils/types/char_array, rcutils/types/char_array,
+  rcutils/types/hash_map, rcutils/types/hash_map, rcutils/types/string_array,
   rcutils/types/string_array, rcutils/qsort, rcutils/qsort,
   rcutils/types/string_array, rcutils/types/string_map,
   rcutils/types/string_map, rcutils/types/uint8_array,

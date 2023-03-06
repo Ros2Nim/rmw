@@ -1,3 +1,7 @@
+##  #pragma c2nim mangle "'rosidl_runtime_c__' {\\w+}" "$1"
+##  #pragma c2nim mangle "'namespace_'" "namespace"
+##  #pragma c2nim mangle "'rmw_time_s'" "rmw_time_t"
+
 ##  Copyright 2020 Open Source Robotics Foundation, Inc.
 ##  Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 ##

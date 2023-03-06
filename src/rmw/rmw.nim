@@ -1,3 +1,7 @@
+##  #pragma c2nim mangle "'rosidl_runtime_c__' {\\w+}" "$1"
+##  #pragma c2nim mangle "'namespace_'" "namespace"
+##  #pragma c2nim mangle "'rmw_time_s'" "rmw_time_t"
+
 ##  Copyright 2014-2017 Open Source Robotics Foundation, Inc.
 ##
 ##  Licensed under the Apache License, Version 2.0 (the "License");
@@ -81,11 +85,11 @@
 import
   rcutils/allocator, rcutils/allocator, rcutils/macros, rcutils/macros,
   rcutils/macros, rcutils/macros, rcutils/macros, rcutils/allocator,
-  rcutils/types/rcutils_ret, rcutils/allocator, rcutils/visibility_control,
+  rcutils/types/rcutils_ret, rcutils/allocator,
   rcutils/visibility_control_macros, rcutils/visibility_control_macros,
-  rcutils/visibility_control, rcutils/allocator, rcutils/types/array_list,
-  rcutils/types/array_list, rcutils/types/char_array, rcutils/types/char_array,
-  rcutils/types/hash_map, rcutils/types/hash_map, rcutils/types/string_array,
+  rcutils/allocator, rcutils/types/array_list, rcutils/types/array_list,
+  rcutils/types/char_array, rcutils/types/char_array, rcutils/types/hash_map,
+  rcutils/types/hash_map, rcutils/types/string_array,
   rcutils/types/string_array, rcutils/error_handling, rcutils/error_handling,
   rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
   rcutils/error_handling, rcutils/snprintf, rcutils/snprintf,
@@ -98,7 +102,6 @@ import
   rcutils/types/uint8_array, rosidl_runtime_c/message_type_support_struct,
   rosidl_runtime_c/visibility_control, rosidl_runtime_c/visibility_control,
   rosidl_runtime_c/message_type_support_struct,
-  rosidl_typesupport_interface/macros,
   rosidl_runtime_c/message_type_support_struct,
   rosidl_runtime_c/service_type_support_struct,
   rosidl_runtime_c/service_type_support_struct, rosidl_runtime_c/sequence_bound,
@@ -150,7 +153,7 @@ proc rmw_get_serialization_format*(): cstring {.
                               ##
 
 proc rmw_create_node*(context: ptr rmw_context_t; name: cstring;
-                      namespace: cstring): ptr rmw_node_t {.
+                      namespace_: cstring): ptr rmw_node_t {.
     importc: "rmw_create_node", header: "rmw.h".}
   ##  TODO(wjwwood): refactor this API to return a return code when updated to use an allocator
                                                  ##  Create a node and return a handle to that node.
@@ -267,7 +270,7 @@ proc rmw_node_get_graph_guard_condition*(node: ptr rmw_node_t): ptr rmw_guard_co
                               ##
 
 proc rmw_init_publisher_allocation*(type_support: ptr rosidl_message_type_support_t;
-                                    message_bounds: ptr Sequence_bound;
+    message_bounds: ptr rosidl_runtime_c_Sequence_bound;
                                     allocation: ptr rmw_publisher_allocation_t): rmw_ret_t {.
     importc: "rmw_init_publisher_allocation", header: "rmw.h".}
   ##
@@ -744,8 +747,7 @@ proc rmw_publish_serialized_message*(publisher: ptr rmw_publisher_t;
                               ##
 
 proc rmw_get_serialized_message_size*(type_support: ptr rosidl_message_type_support_t;
-                                      message_bounds: ptr Sequence_bound;
-                                      size: ptr csize_t): rmw_ret_t {.
+    message_bounds: ptr rosidl_runtime_c_Sequence_bound; size: ptr csize_t): rmw_ret_t {.
     importc: "rmw_get_serialized_message_size", header: "rmw.h".}
   ##
                               ##  Compute the size of a serialized message.
@@ -901,8 +903,7 @@ proc rmw_deserialize*(serialized_message: ptr rmw_serialized_message_t;
                                                  ##
 
 proc rmw_init_subscription_allocation*(type_support: ptr rosidl_message_type_support_t;
-                                       message_bounds: ptr Sequence_bound;
-    allocation: ptr rmw_subscription_allocation_t): rmw_ret_t {.
+    message_bounds: ptr rosidl_runtime_c_Sequence_bound; allocation: ptr rmw_subscription_allocation_t): rmw_ret_t {.
     importc: "rmw_init_subscription_allocation", header: "rmw.h".}
   ##
                               ##  Initialize a subscription allocation to be used with later `take`s.

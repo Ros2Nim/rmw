@@ -1,3 +1,7 @@
+##  #pragma c2nim mangle "'rosidl_runtime_c__' {\\w+}" "$1"
+##  #pragma c2nim mangle "'namespace_'" "namespace"
+##  #pragma c2nim mangle "'rmw_time_s'" "rmw_time_t"
+
 ##  Copyright 2014-2017 Open Source Robotics Foundation, Inc.
 ##
 ##  Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,9 +22,8 @@ import
   rcutils/logging, rcutils/logging, rcutils/logging, rcutils/allocator,
   rcutils/allocator, rcutils/macros, rcutils/macros, rcutils/macros,
   rcutils/macros, rcutils/macros, rcutils/allocator, rcutils/types/rcutils_ret,
-  rcutils/allocator, rcutils/visibility_control,
-  rcutils/visibility_control_macros, rcutils/visibility_control_macros,
-  rcutils/visibility_control, rcutils/allocator, rcutils/logging,
+  rcutils/allocator, rcutils/visibility_control_macros,
+  rcutils/visibility_control_macros, rcutils/allocator, rcutils/logging,
   rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
   rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
   rcutils/snprintf, rcutils/snprintf, rcutils/error_handling,
@@ -64,7 +67,8 @@ type
                               ##  Name of the rmw implementation
     data* {.importc: "data".}: pointer ##  Type erased pointer to this node's data
     name* {.importc: "name".}: cstring ##  A concise name of this rmw node for identification
-    namespace* {.importc: "namespace_".}: cstring ##  The namespace of this rmw node
+    namespace_* {.importc: "namespace_".}: cstring ##
+                              ##  The namespace of this rmw node
     context* {.importc: "context".}: ptr rmw_context_t ##
                               ##  Context information about node's init specific information
 
@@ -379,13 +383,13 @@ type
     durability* {.importc: "durability".}: rmw_qos_durability_policy_t ##
                               ##  Durability QoS policy setting
     ##  The period at which messages are expected to be sent/received
-    deadline* {.importc: "deadline".}: rmw_time_t ##
+    deadline* {.importc: "deadline".}: rmw_time_s ##
                                                   ##  RMW_DURATION_UNSPEFICIED will use the RMW implementation's default value,
                                                   ##    which may or may not be infinite.
                                                   ##  RMW_DURATION_INFINITE explicitly states that messages never miss a deadline expectation.
                                                   ##
     ##  The age at which messages are considered expired and no longer valid
-    lifespan* {.importc: "lifespan".}: rmw_time_t ##
+    lifespan* {.importc: "lifespan".}: rmw_time_s ##
                                                   ##  RMW_DURATION_UNSPEFICIED will use the RMW implementation's default value,
                                                   ##    which may or may not be infinite.
                                                   ##  RMW_DURATION_INFINITE explicitly states that messages do not expire.
@@ -393,7 +397,7 @@ type
     liveliness* {.importc: "liveliness".}: rmw_qos_liveliness_policy_t ##
                               ##  Liveliness QoS policy setting
     ##  The time within which the RMW node or publisher must show that it is alive
-    liveliness_lease_duration* {.importc: "liveliness_lease_duration".}: rmw_time_t ##
+    liveliness_lease_duration* {.importc: "liveliness_lease_duration".}: rmw_time_s ##
                               ##
                               ##  RMW_DURATION_UNSPEFICIED will use the RMW implementation's default value,
                               ##    which may or may not be infinite.

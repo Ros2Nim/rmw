@@ -1,3 +1,7 @@
+##  #pragma c2nim mangle "'rosidl_runtime_c__' {\\w+}" "$1"
+##  #pragma c2nim mangle "'namespace_'" "namespace"
+##  #pragma c2nim mangle "'rmw_time_s'" "rmw_time_t"
+
 ##  Copyright 2020 Open Source Robotics Foundation, Inc.
 ##
 ##  Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,9 +19,9 @@
 import
   rcutils/allocator, rcutils/allocator, rcutils/macros, rcutils/macros,
   rcutils/macros, rcutils/macros, rcutils/macros, rcutils/allocator,
-  rcutils/types/rcutils_ret, rcutils/allocator, rcutils/visibility_control,
+  rcutils/types/rcutils_ret, rcutils/allocator,
   rcutils/visibility_control_macros, rcutils/visibility_control_macros,
-  rcutils/visibility_control, rcutils/allocator, ./ret_types, ./ret_types
+  rcutils/allocator, ./ret_types, ./ret_types
 
 
 type

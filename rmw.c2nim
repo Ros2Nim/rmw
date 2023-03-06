@@ -15,9 +15,9 @@
 #pragma c2nim render reIndentLongComments
 #pragma c2nim render NonNep1Imports
 
-#pragma c2nim mangle "'rosidl_runtime_c__' {\\w+}" "$1"
-#pragma c2nim mangle "'namespace_'" "namespace"
-#pragma c2nim mangle "'rmw_time_s'" "rmw_time_t"
+// #pragma c2nim mangle "'rosidl_runtime_c__' {\\w+}" "$1"
+// #pragma c2nim mangle "'namespace_'" "namespace"
+// #pragma c2nim mangle "'rmw_time_s'" "rmw_time_t"
 #pragma c2nim mangle "@@ '_e'$" "$1_t"
 
 #pragma c2nim mangle "_Bool" "bool"
@@ -31,6 +31,8 @@
 #pragma c2nim delete "./visibility_control"
 #pragma c2nim delete "./macros"
 #pragma c2nim delete "./error_handling"
+#pragma c2nim delete "rcutils/visibility_control"
+#pragma c2nim delete "rosidl_typesupport_interface/macros"
 
 #pragma c2nim delete "RMW_QOS_POLICY_LIVELINESS_MANUAL_BY_NODE_DEPRECATED_MSG"
 #pragma c2nim delete "RMW_QOS_DEADLINE_BEST_AVAILABLE"

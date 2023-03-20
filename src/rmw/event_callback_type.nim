@@ -1,7 +1,3 @@
-##  #pragma c2nim mangle "'rosidl_runtime_c__' {\\w+}" "$1"
-##  #pragma c2nim mangle "'namespace_'" "namespace"
-##  #pragma c2nim mangle "'rmw_time_s'" "rmw_time_t"
-
 ##  Copyright 2021 Open Source Robotics Foundation, Inc.
 ##
 ##  Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,6 +11,7 @@
 ##  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ##  See the License for the specific language governing permissions and
 ##  limitations under the License.
+
 
 type
 
@@ -40,3 +37,4 @@ type
                               ##  \sa rmw_client_set_on_new_response_callback()
                               ##  \sa rmw_event_set_callback()
                               ##
+

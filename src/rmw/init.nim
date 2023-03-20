@@ -1,7 +1,3 @@
-##  #pragma c2nim mangle "'rosidl_runtime_c__' {\\w+}" "$1"
-##  #pragma c2nim mangle "'namespace_'" "namespace"
-##  #pragma c2nim mangle "'rmw_time_s'" "rmw_time_t"
-
 ##  Copyright 2014-2018 Open Source Robotics Foundation, Inc.
 ##
 ##  Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,14 +13,10 @@
 ##  limitations under the License.
 
 import
-  ./init_options, rcutils/allocator, rcutils/allocator, rcutils/allocator,
-  rcutils/macros, rcutils/macros, rcutils/macros, rcutils/macros,
-  rcutils/macros, rcutils/allocator, rcutils/types/rcutils_ret,
-  rcutils/allocator, rcutils/visibility_control_macros,
-  rcutils/visibility_control_macros, rcutils/allocator, ./init_options,
-  ./domain_id, ./init_options, ./localhost, ./localhost, ./init_options,
-  ./init_options, ./ret_types, ./init_options, ./security_options,
-  ./security_options, ./init_options
+  ./init_options, rcutils/allocator, rcutils/macros, rcutils/types/rcutils_ret,
+  rcutils/visibility_control_macros, ./domain_id, ./localhost, ./ret_types,
+  ./security_options
+
 
 type
 
@@ -35,7 +27,8 @@ type
                               ##
 
 
-  rmw_context_t* {.importc: "rmw_context_t", header: "init.h", bycopy.} = object
+  rmw_context_t* {.importc: "rmw_context_t", header: "init.h", bycopy.} = object ##
+                              ##  Initialization context structure which is used to store init specific information.
     instance_id* {.importc: "instance_id".}: uint64 ##
                               ##  Locally (process local) unique ID that represents this init/shutdown cycle.
     implementation_identifier* {.importc: "implementation_identifier".}: cstring ##
@@ -49,7 +42,6 @@ type
                               ##  May be NULL if there is no implementation defined context information.
 
 
-##  Initialization context structure which is used to store init specific information.
 
 
 proc rmw_get_zero_initialized_context*(): rmw_context_t {.

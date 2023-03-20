@@ -1,7 +1,3 @@
-##  #pragma c2nim mangle "'rosidl_runtime_c__' {\\w+}" "$1"
-##  #pragma c2nim mangle "'namespace_'" "namespace"
-##  #pragma c2nim mangle "'rmw_time_s'" "rmw_time_t"
-
 ##  Copyright 2014-2017 Open Source Robotics Foundation, Inc.
 ##
 ##  Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,40 +15,18 @@
 ##  map rcutils specific log levels to rmw speicfic type
 
 import
-  rcutils/logging, rcutils/logging, rcutils/logging, rcutils/allocator,
-  rcutils/allocator, rcutils/macros, rcutils/macros, rcutils/macros,
-  rcutils/macros, rcutils/macros, rcutils/allocator, rcutils/types/rcutils_ret,
-  rcutils/allocator, rcutils/visibility_control_macros,
-  rcutils/visibility_control_macros, rcutils/allocator, rcutils/logging,
-  rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
-  rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
-  rcutils/snprintf, rcutils/snprintf, rcutils/error_handling,
-  rcutils/testing/fault_injection, rcutils/testing/fault_injection,
-  rcutils/testing/fault_injection, rcutils/error_handling,
-  rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
-  rcutils/logging, rcutils/types/array_list, rcutils/types/array_list,
-  rcutils/types/char_array, rcutils/types/char_array, rcutils/types/hash_map,
-  rcutils/types/hash_map, rcutils/types/string_array,
-  rcutils/types/string_array, rcutils/qsort, rcutils/qsort,
-  rcutils/types/string_array, rcutils/types/string_map,
-  rcutils/types/string_map, rcutils/types/uint8_array,
-  rcutils/types/uint8_array, rcutils/logging, ./events_statuses/events_statuses,
-  ./events_statuses/incompatible_qos, ./qos_policy_kind, ./qos_policy_kind,
-  ./events_statuses/incompatible_qos, ./events_statuses/events_statuses,
-  ./events_statuses/liveliness_changed, ./events_statuses/liveliness_changed,
-  ./events_statuses/events_statuses, ./events_statuses/liveliness_lost,
-  ./events_statuses/liveliness_lost, ./events_statuses/events_statuses,
-  ./events_statuses/message_lost, ./events_statuses/message_lost,
-  ./events_statuses/events_statuses, ./events_statuses/offered_deadline_missed,
-  ./events_statuses/offered_deadline_missed, ./events_statuses/events_statuses,
-  ./events_statuses/requested_deadline_missed,
-  ./events_statuses/requested_deadline_missed,
-  ./events_statuses/events_statuses, ./init, ./init_options, ./init_options,
-  ./domain_id, ./init_options, ./localhost, ./init_options, ./init_options,
-  ./ret_types, ./init_options, ./security_options, ./security_options,
-  ./init_options, ./init, ./serialized_message,
-  ./subscription_content_filter_options, ./subscription_content_filter_options,
-  ./time, ./time
+  rcutils/logging, rcutils/allocator, rcutils/macros, rcutils/types/rcutils_ret,
+  rcutils/visibility_control_macros, rcutils/error_handling, rcutils/snprintf,
+  rcutils/testing/fault_injection, rcutils/types/array_list,
+  rcutils/types/char_array, rcutils/types/hash_map, rcutils/types/string_array,
+  rcutils/qsort, rcutils/types/string_map, rcutils/types/uint8_array,
+  ./events_statuses/events_statuses, ./events_statuses/incompatible_qos,
+  ./qos_policy_kind, ./events_statuses/liveliness_changed,
+  ./events_statuses/liveliness_lost, ./events_statuses/message_lost,
+  ./events_statuses/offered_deadline_missed,
+  ./events_statuses/requested_deadline_missed, ./init, ./init_options,
+  ./domain_id, ./localhost, ./ret_types, ./security_options,
+  ./serialized_message, ./subscription_content_filter_options, ./time
 
 const
   RMW_GID_STORAGE_SIZE* = 16'u ##  We define the GID as 16 bytes (128 bits).  This should be enough to ensure
@@ -62,7 +36,8 @@ const
 
 type
 
-  rmw_node_t* {.importc: "rmw_node_t", header: "types.h", bycopy.} = object
+  rmw_node_t* {.importc: "rmw_node_t", header: "types.h", bycopy.} = object ##
+                              ##  Structure which encapsulates an rmw node
     implementation_identifier* {.importc: "implementation_identifier".}: cstring ##
                               ##  Name of the rmw implementation
     data* {.importc: "data".}: pointer ##  Type erased pointer to this node's data
@@ -72,12 +47,14 @@ type
                               ##  Context information about node's init specific information
 
 
-  rmw_endpoint_type_t* {.size: sizeof(cint).} = enum
+  rmw_endpoint_type_t* {.size: sizeof(cint).} = enum ##
+                              ##  Endpoint enumeration type
     RMW_ENDPOINT_INVALID = 0, ##  Creates and publishes messages to the ROS topic
     RMW_ENDPOINT_PUBLISHER, ##  Listens for and receives messages from a topic
     RMW_ENDPOINT_SUBSCRIPTION
 
-  rmw_unique_network_flow_endpoints_requirement_t* {.size: sizeof(cint).} = enum
+  rmw_unique_network_flow_endpoints_requirement_t* {.size: sizeof(cint).} = enum ##
+                              ##  Unique network flow endpoints requirement enumeration
     RMW_UNIQUE_NETWORK_FLOW_ENDPOINTS_NOT_REQUIRED = 0, ##
                               ##  Unique network flow endpoins strictly required.
                               ##  Error if not provided by RMW implementation.
@@ -89,7 +66,8 @@ type
     RMW_UNIQUE_NETWORK_FLOW_ENDPOINTS_SYSTEM_DEFAULT
 
   rmw_publisher_options_t* {.importc: "rmw_publisher_options_t",
-                             header: "types.h", bycopy.} = object
+                             header: "types.h", bycopy.} = object ##
+                              ##  Options that can be used to configure the creation of a publisher in rmw.
     rmw_specific_publisher_payload* {.importc: "rmw_specific_publisher_payload".}: pointer ##
                               ##  Used to pass rmw implementation specific resources during publisher creation.
                               ##
@@ -112,7 +90,8 @@ type
                               ##
 
 
-  rmw_publisher_t* {.importc: "rmw_publisher_t", header: "types.h", bycopy.} = object
+  rmw_publisher_t* {.importc: "rmw_publisher_t", header: "types.h", bycopy.} = object ##
+                              ##  Structure which encapsulates an rmw publisher
     implementation_identifier* {.importc: "implementation_identifier".}: cstring ##
                               ##  Name of the rmw implementation
     data* {.importc: "data".}: pointer ##  Type erased pointer to this publisher's data
@@ -133,7 +112,8 @@ type
 
 
   rmw_subscription_options_t* {.importc: "rmw_subscription_options_t",
-                                header: "types.h", bycopy.} = object
+                                header: "types.h", bycopy.} = object ##
+                              ##  Options that can be used to configure the creation of a subscription in rmw.
     rmw_specific_subscription_payload* {.
         importc: "rmw_specific_subscription_payload".}: pointer ##
                               ##  Used to pass rmw implementation specific resources during subscription creation.
@@ -192,7 +172,8 @@ type
                               ##  Indicates whether content filtered topic of this subscription is enabled
 
 
-  rmw_service_t* {.importc: "rmw_service_t", header: "types.h", bycopy.} = object
+  rmw_service_t* {.importc: "rmw_service_t", header: "types.h", bycopy.} = object ##
+                              ##  A handle to an rmw service
     implementation_identifier* {.importc: "implementation_identifier".}: cstring ##
                               ##  The name of the rmw implementation
     data* {.importc: "data".}: pointer ##  Type erased pointer to this service
@@ -200,7 +181,8 @@ type
                               ##  The name of this service as exposed to the ros graph
 
 
-  rmw_client_t* {.importc: "rmw_client_t", header: "types.h", bycopy.} = object
+  rmw_client_t* {.importc: "rmw_client_t", header: "types.h", bycopy.} = object ##
+                              ##  A handle to an rmw service client
     implementation_identifier* {.importc: "implementation_identifier".}: cstring ##
                               ##  The name of the rmw implementation
     data* {.importc: "data".}: pointer ##  Type erased pointer to this service client
@@ -209,7 +191,7 @@ type
 
 
   rmw_guard_condition_t* {.importc: "rmw_guard_condition_t", header: "types.h",
-                           bycopy.} = object
+                           bycopy.} = object ##  Handle for an rmw guard condition
     implementation_identifier* {.importc: "implementation_identifier".}: cstring ##
                               ##  The name of the rmw implementation
     data* {.importc: "data".}: pointer ##  Type erased pointer to this guard condition
@@ -218,35 +200,57 @@ type
 
 
   rmw_publisher_allocation_t* {.importc: "rmw_publisher_allocation_t",
-                                header: "types.h", bycopy.} = object
+                                header: "types.h", bycopy.} = object ##
+                              ##  Allocation of memory for an rmw publisher
     implementation_identifier* {.importc: "implementation_identifier".}: cstring ##
                               ##  The name of the rmw implementation
     data* {.importc: "data".}: pointer ##  Type erased pointer to this allocation
 
 
   rmw_subscription_allocation_t* {.importc: "rmw_subscription_allocation_t",
-                                   header: "types.h", bycopy.} = object
+                                   header: "types.h", bycopy.} = object ##
+                              ##  Allocation of memory for an rmw subscription
     implementation_identifier* {.importc: "implementation_identifier".}: cstring ##
                               ##  The name of the rmw implementation
     data* {.importc: "data".}: pointer ##  Type erased pointer to this allocation
 
 
   rmw_subscriptions_t* {.importc: "rmw_subscriptions_t", header: "types.h",
-                         bycopy.} = object
+                         bycopy.} = object ##  Array of subscriber handles.
+                                            ##
+                                            ##  An array of void * pointers representing type-erased middleware-specific subscriptions.
+                                            ##  The number of non-null entries may be smaller than the allocated size of the array.
+                                            ##  The number of subscriptions represented may be smaller than the allocated size of the array.
+                                            ##  The creator of this struct is responsible for allocating and deallocating the array.
+                                            ##
     subscriber_count* {.importc: "subscriber_count".}: csize_t ##
                               ##  The number of subscribers represented by the array.
     subscribers* {.importc: "subscribers".}: ptr pointer ##
                               ##  Pointer to an array of void * pointers of subscriptions.
 
 
-  rmw_services_t* {.importc: "rmw_services_t", header: "types.h", bycopy.} = object
+  rmw_services_t* {.importc: "rmw_services_t", header: "types.h", bycopy.} = object ##
+                              ##  Array of service handles.
+                              ##
+                              ##  An array of void * pointers representing type-erased middleware-specific services.
+                              ##  The number of non-null entries may be smaller than the allocated size of the array.
+                              ##  The number of services represented may be smaller than the allocated size of the array.
+                              ##  The creator of this struct is responsible for allocating and deallocating the array.
+                              ##
     service_count* {.importc: "service_count".}: csize_t ##
                               ##  The number of services represented by the array.
     services* {.importc: "services".}: ptr pointer ##
                               ##  Pointer to an array of void * pointers of services.
 
 
-  rmw_clients_t* {.importc: "rmw_clients_t", header: "types.h", bycopy.} = object
+  rmw_clients_t* {.importc: "rmw_clients_t", header: "types.h", bycopy.} = object ##
+                              ##  Array of client handles.
+                              ##
+                              ##  An array of void * pointers representing type-erased middleware-specific clients.
+                              ##  The number of non-null entries may be smaller than the allocated size of the array.
+                              ##  The number of clients represented may be smaller than the allocated size of the array.
+                              ##  The creator of this struct is responsible for allocating and deallocating the array.
+                              ##
     client_count* {.importc: "client_count".}: csize_t ##
                               ##  The number of clients represented by the array.
     clients* {.importc: "clients".}: ptr pointer ##  Pointer to an array of void * pointers of clients.
@@ -259,14 +263,22 @@ type
 
 
   rmw_guard_conditions_t* {.importc: "rmw_guard_conditions_t",
-                            header: "types.h", bycopy.} = object
+                            header: "types.h", bycopy.} = object ##
+                              ##  Array of guard condition handles.
+                              ##
+                              ##  An array of void * pointers representing type-erased middleware-specific guard conditions.
+                              ##  The number of non-null entries may be smaller than the allocated size of the array.
+                              ##  The number of guard conditions represented may be smaller than the allocated size of the array.
+                              ##  The creator of this struct is responsible for allocating and deallocating the array.
+                              ##
     guard_condition_count* {.importc: "guard_condition_count".}: csize_t ##
                               ##  The number of guard conditions represented by the array.
     guard_conditions* {.importc: "guard_conditions".}: ptr pointer ##
                               ##  Pointer to an array of void * pointers of guard conditions.
 
 
-  rmw_wait_set_t* {.importc: "rmw_wait_set_t", header: "types.h", bycopy.} = object
+  rmw_wait_set_t* {.importc: "rmw_wait_set_t", header: "types.h", bycopy.} = object ##
+                              ##  Container for guard conditions to be waited on
     implementation_identifier* {.importc: "implementation_identifier".}: cstring ##
                               ##  The name of the rmw implementation
     guard_conditions* {.importc: "guard_conditions".}: ptr rmw_guard_conditions_t ##
@@ -274,14 +286,16 @@ type
     data* {.importc: "data".}: pointer ##  Type erased pointer to this wait set's data
 
 
-  rmw_request_id_t* {.importc: "rmw_request_id_t", header: "types.h", bycopy.} = object
+  rmw_request_id_t* {.importc: "rmw_request_id_t", header: "types.h", bycopy.} = object ##
+                              ##  An rmw service request identifier
     writer_guid* {.importc: "writer_guid".}: array[16'u, uint8] ##
                               ##  The guid of the writer associated with this request
     sequence_number* {.importc: "sequence_number".}: int64 ##
                               ##  Sequence number of this service
 
 
-  rmw_service_info_t* {.importc: "rmw_service_info_t", header: "types.h", bycopy.} = object
+  rmw_service_info_t* {.importc: "rmw_service_info_t", header: "types.h", bycopy.} = object ##
+                              ##  Meta-data for a service-related take.
     source_timestamp* {.importc: "source_timestamp".}: rmw_time_point_value_t
     received_timestamp* {.importc: "received_timestamp".}: rmw_time_point_value_t
     request_id* {.importc: "request_id".}: rmw_request_id_t
@@ -310,13 +324,15 @@ type
                                          ##
     RMW_QOS_POLICY_RELIABILITY_BEST_AVAILABLE
 
-  rmw_qos_history_policy_t* {.size: sizeof(cint).} = enum
+  rmw_qos_history_policy_t* {.size: sizeof(cint).} = enum ##
+                              ##  QoS history enumerations describing how samples endure
     RMW_QOS_POLICY_HISTORY_SYSTEM_DEFAULT, ##  Only store up to a maximum number of samples, dropping oldest once max is exceeded
     RMW_QOS_POLICY_HISTORY_KEEP_LAST, ##  Store all samples, subject to resource limits
     RMW_QOS_POLICY_HISTORY_KEEP_ALL, ##  History policy has not yet been set
     RMW_QOS_POLICY_HISTORY_UNKNOWN
 
-  rmw_qos_durability_policy_t* {.size: sizeof(cint).} = enum
+  rmw_qos_durability_policy_t* {.size: sizeof(cint).} = enum ##
+                              ##  QoS durability enumerations describing how samples persist
     RMW_QOS_POLICY_DURABILITY_SYSTEM_DEFAULT, ##  The rmw publisher is responsible for persisting samples for “late-joining” subscribers
     RMW_QOS_POLICY_DURABILITY_TRANSIENT_LOCAL, ##  Samples are not persistent
     RMW_QOS_POLICY_DURABILITY_VOLATILE, ##  Durability policy has not yet been set
@@ -342,7 +358,11 @@ type
                                         ##
     RMW_QOS_POLICY_DURABILITY_BEST_AVAILABLE
 
-  rmw_qos_liveliness_policy_t* {.size: sizeof(cint).} = enum
+  rmw_qos_liveliness_policy_t* {.size: sizeof(cint).} = enum ##
+                              ##  QoS liveliness enumerations that describe a publisher's reporting policy for its alive status.
+                              ##  For a subscriber, these are its requirements for its topic's publishers.
+                              ##  Suppress syntax errors, as cppcheck does not seem to handle enumerator attributes.
+                              ##  cppcheck-suppress syntaxError
     RMW_QOS_POLICY_LIVELINESS_SYSTEM_DEFAULT = 0, ##
                               ##  The signal that establishes a Topic is alive comes from the ROS rmw layer.
     RMW_QOS_POLICY_LIVELINESS_AUTOMATIC = 1, ##  Explicitly asserting node liveliness is required in this case.
@@ -374,7 +394,8 @@ type
                                             ##
     RMW_QOS_POLICY_LIVELINESS_BEST_AVAILABLE = 5
 
-  rmw_qos_profile_t* {.importc: "rmw_qos_profile_t", header: "types.h", bycopy.} = object
+  rmw_qos_profile_t* {.importc: "rmw_qos_profile_t", header: "types.h", bycopy.} = object ##
+                              ##  ROS MiddleWare quality of service profile.
     history* {.importc: "history".}: rmw_qos_history_policy_t
     depth* {.importc: "depth".}: csize_t ##  Size of the message queue.
     reliability* {.importc: "reliability".}: rmw_qos_reliability_policy_t ##
@@ -416,13 +437,15 @@ type
                               ##
 
 
-  rmw_gid_t* {.importc: "rmw_gid_t", header: "types.h", bycopy.} = object
+  rmw_gid_t* {.importc: "rmw_gid_t", header: "types.h", bycopy.} = object ##
+                              ##  ROS graph ID of the topic
     implementation_identifier* {.importc: "implementation_identifier".}: cstring ##
                               ##  Name of the rmw implementation
     data* {.importc: "data".}: array[16'u, uint8] ##  Byte data Gid value
 
 
-  rmw_message_info_t* {.importc: "rmw_message_info_t", header: "types.h", bycopy.} = object
+  rmw_message_info_t* {.importc: "rmw_message_info_t", header: "types.h", bycopy.} = object ##
+                              ##  Information describing an rmw message
     source_timestamp* {.importc: "source_timestamp".}: rmw_time_point_value_t ##
                               ##  Time when the message was published by the publisher.
                               ##
@@ -506,7 +529,8 @@ type
                               ##  Whether this message is from intra_process communication or not
 
 
-  rmw_log_severity_t* {.size: sizeof(cint).} = enum
+  rmw_log_severity_t* {.size: sizeof(cint).} = enum ##
+                              ##  Type mapping of rcutils log severity types to rmw specific types.
     RMW_LOG_SEVERITY_DEBUG = RCUTILS_LOG_SEVERITY_DEBUG, ##
                               ##  Informational log severity, for reporting expected but not overwhelming information
     RMW_LOG_SEVERITY_INFO = RCUTILS_LOG_SEVERITY_INFO, ##
@@ -517,135 +541,17 @@ type
                               ##  Fatal log severity, for reporting issue causing imminent shutdown
     RMW_LOG_SEVERITY_FATAL = RCUTILS_LOG_SEVERITY_FATAL
 
-##  Endpoint enumeration type
-
-##  Unique network flow endpoints requirement enumeration
-
-##  Options that can be used to configure the creation of a publisher in rmw.
-
-##  Structure which encapsulates an rmw publisher
-
-##  Options that can be used to configure the creation of a subscription in rmw.
-
-##  A handle to an rmw service
-
-##  A handle to an rmw service client
-
-##  Handle for an rmw guard condition
-
-##  Allocation of memory for an rmw publisher
-
-##  Allocation of memory for an rmw subscription
-
-##  Array of subscriber handles.
-##
-##  An array of void * pointers representing type-erased middleware-specific subscriptions.
-##  The number of non-null entries may be smaller than the allocated size of the array.
-##  The number of subscriptions represented may be smaller than the allocated size of the array.
-##  The creator of this struct is responsible for allocating and deallocating the array.
-##
-
-##  Array of service handles.
-##
-##  An array of void * pointers representing type-erased middleware-specific services.
-##  The number of non-null entries may be smaller than the allocated size of the array.
-##  The number of services represented may be smaller than the allocated size of the array.
-##  The creator of this struct is responsible for allocating and deallocating the array.
-##
-
-##  Array of client handles.
-##
-##  An array of void * pointers representing type-erased middleware-specific clients.
-##  The number of non-null entries may be smaller than the allocated size of the array.
-##  The number of clients represented may be smaller than the allocated size of the array.
-##  The creator of this struct is responsible for allocating and deallocating the array.
-##
-
-##  Array of guard condition handles.
-##
-##  An array of void * pointers representing type-erased middleware-specific guard conditions.
-##  The number of non-null entries may be smaller than the allocated size of the array.
-##  The number of guard conditions represented may be smaller than the allocated size of the array.
-##  The creator of this struct is responsible for allocating and deallocating the array.
-##
-
-##  Container for guard conditions to be waited on
-
-##  An rmw service request identifier
-
-##  Meta-data for a service-related take.
-
-##  QoS history enumerations describing how samples endure
-
-##  QoS durability enumerations describing how samples persist
-
-##  QoS liveliness enumerations that describe a publisher's reporting policy for its alive status.
-##  For a subscriber, these are its requirements for its topic's publishers.
-##  Suppress syntax errors, as cppcheck does not seem to handle enumerator attributes.
-##  cppcheck-suppress syntaxError
-
-##  QoS Deadline default.
-
-##  Will match the majority of endpoints while maintaining as strict a policy as possible
-##
-##  Value is RMW_DURATION_INFINITE - 1.
-##
-##  A policy will be chosen at the time of creating a subscription or publisher.
-##  For a subscription, the deadline will be the maximum value of all discovered publisher
-##  deadlines.
-##  For a publisher, the deadline will be the minimum value of all discovered subscription
-##  deadlines.
-##
-##  The QoS policy reported by functions like `rmw_subscription_get_actual_qos` or
-##  `rmw_publisher_get_actual_qos` may be best available or the actual deadline value.
-##
-##  Services and clients are not supported and default to the deadline value in
-##  `rmw_qos_profile_services_default`.
-##
-##  The middleware is not expected to update the policy after creating a subscription or
-##  publisher, even if the chosen policy is incompatible with newly discovered endpoints.
-##  Therefore, this policy should be used with care since non-deterministic behavior
-##  can occur due to races with discovery.
-##
-
-##  QoS Lifespan default.
-
-##  QoS Liveliness lease duration default.
-
-##  Will match the majority of endpoints while maintaining as strict a policy as possible
-##
-##  Value is RMW_DURATION_INFINITE - 1.
-##
-##  A policy will be chosen at the time of creating a subscription or publisher.
-##  For a subscription, the lease duration will be the maximum value of all discovered publisher
-##  lease durations.
-##  For a publisher, the lease duration will be the minimum value of all discovered subscription
-##  lease durations.
-##
-##  The QoS policy reported by functions like `rmw_subscription_get_actual_qos` or
-##  `rmw_publisher_get_actual_qos` may be best available or the actual lease duration value.
-##
-##  Services and clients are not supported and default to the lease duration value in
-##  `rmw_qos_profile_services_default`.
-##
-##  The middleware is not expected to update the policy after creating a subscription or
-##  publisher, even if the chosen policy is incompatible with newly discovered endpoints.
-##  Therefore, this policy should be used with care since non-deterministic behavior
-##  can occur due to races with discovery.
-##
-
-##  ROS MiddleWare quality of service profile.
-
-##  ROS graph ID of the topic
-
-##  Information describing an rmw message
+const
+  RMW_QOS_DEADLINE_DEFAULT* = RMW_DURATION_UNSPECIFIED ##
+                              ##  QoS Deadline default.
+  RMW_QOS_LIFESPAN_DEFAULT* = RMW_DURATION_UNSPECIFIED ##
+                              ##  QoS Lifespan default.
+  RMW_QOS_LIVELINESS_LEASE_DURATION_DEFAULT* = RMW_DURATION_UNSPECIFIED ##
+                              ##  QoS Liveliness lease duration default.
+  RMW_MESSAGE_INFO_SEQUENCE_NUMBER_UNSUPPORTED* = uint64.high
 
 
 proc rmw_get_zero_initialized_message_info*(): rmw_message_info_t {.
     importc: "rmw_get_zero_initialized_message_info", header: "types.h".}
   ##
                               ##  Get zero initialized mesage info.
-##  Default size of the rmw queue when history is set to RMW_QOS_POLICY_HISTORY_KEEP_LAST,
-##  0 indicates it is currently not set
-
-##  Type mapping of rcutils log severity types to rmw specific types.

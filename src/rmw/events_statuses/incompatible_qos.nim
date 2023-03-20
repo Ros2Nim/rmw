@@ -1,7 +1,3 @@
-##  #pragma c2nim mangle "'rosidl_runtime_c__' {\\w+}" "$1"
-##  #pragma c2nim mangle "'namespace_'" "namespace"
-##  #pragma c2nim mangle "'rmw_time_s'" "rmw_time_t"
-
 ##  Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 ##
 ##  Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,7 +13,8 @@
 ##  limitations under the License.
 
 import
-  ../qos_policy_kind, ../qos_policy_kind
+  ../qos_policy_kind
+
 
 type
 
@@ -41,10 +38,9 @@ type
                               ##
 
 
-  rmw_requested_qos_incompatible_event_status_t* = rmw_qos_incompatible_event_status_t
+  rmw_requested_qos_incompatible_event_status_t* = rmw_qos_incompatible_event_status_t ##
+                              ##  Event state for a subscription's 'RMW_EVENT_REQUESTED_QOS_INCOMPATIBLE' events.
 
-  rmw_offered_qos_incompatible_event_status_t* = rmw_qos_incompatible_event_status_t
+  rmw_offered_qos_incompatible_event_status_t* = rmw_qos_incompatible_event_status_t ##
+                              ##  Event state for a publisher's 'RMW_EVENT_OFFERED_QOS_INCOMPATIBLE' events.
 
-##  Event state for a subscription's 'RMW_EVENT_REQUESTED_QOS_INCOMPATIBLE' events.
-
-##  Event state for a publisher's 'RMW_EVENT_OFFERED_QOS_INCOMPATIBLE' events.

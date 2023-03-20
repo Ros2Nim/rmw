@@ -1,7 +1,3 @@
-##  #pragma c2nim mangle "'rosidl_runtime_c__' {\\w+}" "$1"
-##  #pragma c2nim mangle "'namespace_'" "namespace"
-##  #pragma c2nim mangle "'rmw_time_s'" "rmw_time_t"
-
 ##  Copyright 2020 Open Source Robotics Foundation, Inc.
 ##
 ##  Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,8 +13,6 @@
 ##  limitations under the License.
 
 import
-  ./incompatible_qos, ./incompatible_qos, ../qos_policy_kind,
-  ../qos_policy_kind, ./incompatible_qos, ./liveliness_changed,
-  ./liveliness_changed, ./liveliness_lost, ./liveliness_lost, ./message_lost,
-  ./message_lost, ./offered_deadline_missed, ./offered_deadline_missed,
-  ./requested_deadline_missed, ./requested_deadline_missed
+  ./incompatible_qos, ../qos_policy_kind, ./liveliness_changed,
+  ./liveliness_lost, ./message_lost, ./offered_deadline_missed,
+  ./requested_deadline_missed

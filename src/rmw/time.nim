@@ -1,7 +1,3 @@
-##  #pragma c2nim mangle "'rosidl_runtime_c__' {\\w+}" "$1"
-##  #pragma c2nim mangle "'namespace_'" "namespace"
-##  #pragma c2nim mangle "'rmw_time_s'" "rmw_time_t"
-
 import rcutils/time
 
 ##  Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -19,31 +15,31 @@ import rcutils/time
 ##  limitations under the License.
 
 import
-  rcutils/macros, rcutils/macros, rcutils/macros, rcutils/macros,
-  rcutils/macros, rcutils/types/array_list, rcutils/types/array_list,
-  rcutils/allocator, rcutils/allocator, rcutils/allocator,
-  rcutils/types/rcutils_ret, rcutils/allocator,
-  rcutils/visibility_control_macros, rcutils/visibility_control_macros,
-  rcutils/allocator, rcutils/types/array_list, rcutils/types/char_array,
-  rcutils/types/char_array, rcutils/types/hash_map, rcutils/types/hash_map,
-  rcutils/types/string_array, rcutils/types/string_array,
-  rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
-  rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
-  rcutils/snprintf, rcutils/snprintf, rcutils/error_handling,
-  rcutils/testing/fault_injection, rcutils/testing/fault_injection,
-  rcutils/testing/fault_injection, rcutils/error_handling,
-  rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
-  rcutils/types/string_array, rcutils/qsort, rcutils/qsort,
-  rcutils/types/string_array, rcutils/types/string_map,
-  rcutils/types/string_map, rcutils/types/uint8_array, rcutils/types/uint8_array
+  rcutils/macros, rcutils/types/array_list, rcutils/allocator,
+  rcutils/types/rcutils_ret, rcutils/visibility_control_macros,
+  rcutils/types/char_array, rcutils/types/hash_map, rcutils/types/string_array,
+  rcutils/error_handling, rcutils/snprintf, rcutils/testing/fault_injection,
+  rcutils/qsort, rcutils/types/string_map, rcutils/types/uint8_array
 
 const
-  RMW_DURATION_UNSPECIFIED* = (0'i64, 0'i64) ##  A struct representing a duration or relative time in RMW - does not encode an origin.
-  RMW_DURATION_INFINITE* = (9223372036'i64, 854775807'i64)
+  RMW_DURATION_UNSPECIFIED* = (0'i64, 0'i64)
+  RMW_DURATION_INFINITE* = (9223372036'i64, 854775807'i64) ##
+                              ##  Constant representing an infinite duration. Use rmw_time_equal for comparisons.
+                              ##
+                              ##  Different RMW implementations have different representations for infinite durations.
+                              ##  This value is reported for QoS policy durations that are left unspecified.
+                              ##  Do not directly compare `sec == sec && nsec == nsec`, because we don't want to be sensitive
+                              ##  to non-normalized values (nsec > 1 second) - use rmw_time_equal instead.
+                              ##  This value is INT64_MAX nanoseconds = 0x7FFF FFFF FFFF FFFF = d 9 223 372 036 854 775 807
+                              ##
+                              ##  Note: these constants cannot be `static const rmw_time_t` because in C that can't be used
+                              ##  as a compile-time initializer
+                              ##
 
 type
 
-  rmw_time_t* {.importc: "rmw_time_t", header: "time.h", bycopy.} = object
+  rmw_time_t* {.importc: "rmw_time_t", header: "time.h", bycopy.} = object ##
+                              ##  A struct representing a duration or relative time in RMW - does not encode an origin.
     sec* {.importc: "sec".}: uint64 ##  Seconds component
     nsec* {.importc: "nsec".}: uint64 ##  Nanoseconds component
 
@@ -52,17 +48,6 @@ type
 
   rmw_duration_t* = rcutils_duration_value_t
 
-##  Constant representing an infinite duration. Use rmw_time_equal for comparisons.
-##
-##  Different RMW implementations have different representations for infinite durations.
-##  This value is reported for QoS policy durations that are left unspecified.
-##  Do not directly compare `sec == sec && nsec == nsec`, because we don't want to be sensitive
-##  to non-normalized values (nsec > 1 second) - use rmw_time_equal instead.
-##  This value is INT64_MAX nanoseconds = 0x7FFF FFFF FFFF FFFF = d 9 223 372 036 854 775 807
-##
-##  Note: these constants cannot be `static const rmw_time_t` because in C that can't be used
-##  as a compile-time initializer
-##
 
 
 proc rmw_time_equal*(left: rmw_time_t; right: rmw_time_t): bool {.

@@ -1,7 +1,3 @@
-##  #pragma c2nim mangle "'rosidl_runtime_c__' {\\w+}" "$1"
-##  #pragma c2nim mangle "'namespace_'" "namespace"
-##  #pragma c2nim mangle "'rmw_time_s'" "rmw_time_t"
-
 ##  Copyright 2014-2018 Open Source Robotics Foundation, Inc.
 ##
 ##  Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,33 +13,18 @@
 ##  limitations under the License.
 
 const
-  RMW_RET_OK* = 0            ##  Return code for rmw functions
-  RMW_RET_ERROR* = 1
-  RMW_RET_TIMEOUT* = 2
-  RMW_RET_UNSUPPORTED* = 3
-  RMW_RET_BAD_ALLOC* = 10
-  RMW_RET_INVALID_ARGUMENT* = 11
-  RMW_RET_INCORRECT_RMW_IMPLEMENTATION* = 12
-  RMW_RET_NODE_NAME_NON_EXISTENT* = 203
+  RMW_RET_OK* = 0            ##  The operation ran as expected
+  RMW_RET_ERROR* = 1         ##  Generic error to indicate operation could not complete successfully
+  RMW_RET_TIMEOUT* = 2       ##  The operation was halted early because it exceeded its timeout critera
+  RMW_RET_UNSUPPORTED* = 3   ##  The operation or event handling is not supported.
+  RMW_RET_BAD_ALLOC* = 10    ##  Failed to allocate memory
+  RMW_RET_INVALID_ARGUMENT* = 11 ##  Argument to function was invalid
+  RMW_RET_INCORRECT_RMW_IMPLEMENTATION* = 12 ##  Incorrect rmw implementation.
+  RMW_RET_NODE_NAME_NON_EXISTENT* = 203 ##  rmw node specific ret codes in 2XX
+                                        ##  Failed to find node name
+                                        ##  Using same return code than in rcl
 
 type
 
-  rmw_ret_t* = int32
+  rmw_ret_t* = int32         ##  Return code for rmw functions
 
-##  The operation ran as expected
-
-##  Generic error to indicate operation could not complete successfully
-
-##  The operation was halted early because it exceeded its timeout critera
-
-##  The operation or event handling is not supported.
-
-##  Failed to allocate memory
-
-##  Argument to function was invalid
-
-##  Incorrect rmw implementation.
-
-##  rmw node specific ret codes in 2XX
-##  Failed to find node name
-##  Using same return code than in rcl

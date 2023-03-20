@@ -1,7 +1,3 @@
-##  #pragma c2nim mangle "'rosidl_runtime_c__' {\\w+}" "$1"
-##  #pragma c2nim mangle "'namespace_'" "namespace"
-##  #pragma c2nim mangle "'rmw_time_s'" "rmw_time_t"
-
 ##  Copyright 2020 Open Source Robotics Foundation, Inc.
 ##
 ##  Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,6 +11,7 @@
 ##  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ##  See the License for the specific language governing permissions and
 ##  limitations under the License.
+
 
 type
 
@@ -43,4 +40,5 @@ type
                               ##  The change in the alive_count since the status was last read.
     not_alive_count_change* {.importc: "not_alive_count_change".}: int32 ##
                               ##  The change in the not_alive_count since the status was last read.
+
 

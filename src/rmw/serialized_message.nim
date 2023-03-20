@@ -1,7 +1,3 @@
-##  #pragma c2nim mangle "'rosidl_runtime_c__' {\\w+}" "$1"
-##  #pragma c2nim mangle "'namespace_'" "namespace"
-##  #pragma c2nim mangle "'rmw_time_s'" "rmw_time_t"
-
 ##  Copyright 2018 Open Source Robotics Foundation, Inc.
 ##
 ##  Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,34 +13,29 @@
 ##  limitations under the License.
 
 import
-  rcutils/types/uint8_array, rcutils/types/uint8_array, rcutils/allocator,
-  rcutils/allocator, rcutils/allocator, rcutils/macros, rcutils/macros,
-  rcutils/macros, rcutils/macros, rcutils/macros, rcutils/allocator,
-  rcutils/types/rcutils_ret, rcutils/allocator,
-  rcutils/visibility_control_macros, rcutils/visibility_control_macros,
-  rcutils/allocator, rcutils/types/uint8_array
+  rcutils/types/uint8_array, rcutils/allocator, rcutils/macros,
+  rcutils/types/rcutils_ret, rcutils/visibility_control_macros
 
-##
-##  \brief Serialized message as a string of bytes.
-##
-##  It includes (but it is not limited to) the following members:
-##    \e \c buffer the reference to internal storage, as a pointer
-##    \e \c buffer_length the size of stored contents, as an unsigned integer
-##    \e \c buffer_capacity the capacity of internal storage, as an unsigned integer
-##
-##  For now this is a simple aliasing from a serialized message to a uint8 array.
-##  However, in future developments this serialized message can become something
-##  more complex and is therefore aliased.
-##
-
-const
-  rmw_get_zero_initialized_serialized_message* = rcutils_get_zero_initialized_uint8_array
 
 type
 
-  rmw_serialized_message_t* = rcutils_uint8_array_t
+  rmw_serialized_message_t* = rcutils_uint8_array_t ##
+                              ##
+                              ##  \brief Serialized message as a string of bytes.
+                              ##
+                              ##  It includes (but it is not limited to) the following members:
+                              ##    \e \c buffer the reference to internal storage, as a pointer
+                              ##    \e \c buffer_length the size of stored contents, as an unsigned integer
+                              ##    \e \c buffer_capacity the capacity of internal storage, as an unsigned integer
+                              ##
+                              ##  For now this is a simple aliasing from a serialized message to a uint8 array.
+                              ##  However, in future developments this serialized message can become something
+                              ##  more complex and is therefore aliased.
+                              ##
 
-##  Return a zero initialized serialized message struct.
+const
+  rmw_get_zero_initialized_serialized_message* = rcutils_get_zero_initialized_uint8_array ##
+                              ##  Return a zero initialized serialized message struct.
 
 ##  Initialize a serialized message, zero initializing its contents.
 ##

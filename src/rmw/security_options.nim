@@ -1,7 +1,3 @@
-##  #pragma c2nim mangle "'rosidl_runtime_c__' {\\w+}" "$1"
-##  #pragma c2nim mangle "'namespace_'" "namespace"
-##  #pragma c2nim mangle "'rmw_time_s'" "rmw_time_t"
-
 ##  Copyright 2020 Open Source Robotics Foundation, Inc.
 ##
 ##  Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,11 +13,8 @@
 ##  limitations under the License.
 
 import
-  rcutils/allocator, rcutils/allocator, rcutils/macros, rcutils/macros,
-  rcutils/macros, rcutils/macros, rcutils/macros, rcutils/allocator,
-  rcutils/types/rcutils_ret, rcutils/allocator,
-  rcutils/visibility_control_macros, rcutils/visibility_control_macros,
-  rcutils/allocator, ./ret_types, ./ret_types
+  rcutils/allocator, rcutils/macros, rcutils/types/rcutils_ret,
+  rcutils/visibility_control_macros, ./ret_types
 
 
 type
@@ -33,6 +26,7 @@ type
                             header: "security_options.h", bycopy.} = object
     enforce_security* {.importc: "enforce_security".}: rmw_security_enforcement_policy_t
     security_root_path* {.importc: "security_root_path".}: cstring
+
 
 
 

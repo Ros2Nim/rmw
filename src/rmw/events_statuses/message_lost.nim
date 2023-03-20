@@ -1,7 +1,3 @@
-##  #pragma c2nim mangle "'rosidl_runtime_c__' {\\w+}" "$1"
-##  #pragma c2nim mangle "'namespace_'" "namespace"
-##  #pragma c2nim mangle "'rmw_time_s'" "rmw_time_t"
-
 ##  Copyright 2020 Open Source Robotics Foundation, Inc.
 ##
 ##  Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,6 +12,7 @@
 ##  See the License for the specific language governing permissions and
 ##  limitations under the License.
 
+
 type
 
   rmw_message_lost_status_t* {.importc: "rmw_message_lost_status_t",
@@ -24,4 +21,5 @@ type
                               ##  Total number of messages lost.
     total_count_change* {.importc: "total_count_change".}: csize_t ##
                               ##  Number of messages lost since last callback.
+
 

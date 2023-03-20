@@ -1,7 +1,3 @@
-##  #pragma c2nim mangle "'rosidl_runtime_c__' {\\w+}" "$1"
-##  #pragma c2nim mangle "'namespace_'" "namespace"
-##  #pragma c2nim mangle "'rmw_time_s'" "rmw_time_t"
-
 ##  Copyright 2020 Ericsson AB
 ##
 ##  Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,60 +13,38 @@
 ##  limitations under the License.
 
 import
-  ./types, ./types, ./types, ./types, rcutils/logging, rcutils/logging,
-  rcutils/logging, rcutils/allocator, rcutils/allocator, rcutils/macros,
-  rcutils/macros, rcutils/macros, rcutils/macros, rcutils/macros,
-  rcutils/allocator, rcutils/types/rcutils_ret, rcutils/allocator,
-  rcutils/visibility_control_macros, rcutils/visibility_control_macros,
-  rcutils/allocator, rcutils/logging, rcutils/error_handling,
-  rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
-  rcutils/error_handling, rcutils/error_handling, rcutils/snprintf,
-  rcutils/snprintf, rcutils/error_handling, rcutils/testing/fault_injection,
-  rcutils/testing/fault_injection, rcutils/testing/fault_injection,
-  rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
-  rcutils/error_handling, rcutils/logging, rcutils/types/array_list,
-  rcutils/types/array_list, rcutils/types/char_array, rcutils/types/char_array,
-  rcutils/types/hash_map, rcutils/types/hash_map, rcutils/types/string_array,
-  rcutils/types/string_array, rcutils/qsort, rcutils/qsort,
-  rcutils/types/string_array, rcutils/types/string_map,
-  rcutils/types/string_map, rcutils/types/uint8_array,
-  rcutils/types/uint8_array, rcutils/logging, ./types,
-  ./events_statuses/events_statuses, ./events_statuses/incompatible_qos,
-  ./qos_policy_kind, ./qos_policy_kind, ./events_statuses/incompatible_qos,
-  ./events_statuses/events_statuses, ./events_statuses/liveliness_changed,
-  ./events_statuses/liveliness_changed, ./events_statuses/events_statuses,
-  ./events_statuses/liveliness_lost, ./events_statuses/liveliness_lost,
-  ./events_statuses/events_statuses, ./events_statuses/message_lost,
-  ./events_statuses/message_lost, ./events_statuses/events_statuses,
-  ./events_statuses/offered_deadline_missed,
-  ./events_statuses/offered_deadline_missed, ./events_statuses/events_statuses,
-  ./events_statuses/requested_deadline_missed,
-  ./events_statuses/requested_deadline_missed,
-  ./events_statuses/events_statuses, ./types, ./init, ./init_options,
-  ./init_options, ./domain_id, ./init_options, ./localhost, ./init_options,
-  ./init_options, ./ret_types, ./init_options, ./security_options,
-  ./security_options, ./init_options, ./init, ./types, ./serialized_message,
-  ./types, ./subscription_content_filter_options,
-  ./subscription_content_filter_options, ./types, ./time, ./time, ./types
+  ./types, rcutils/logging, rcutils/allocator, rcutils/macros,
+  rcutils/types/rcutils_ret, rcutils/visibility_control_macros,
+  rcutils/error_handling, rcutils/snprintf, rcutils/testing/fault_injection,
+  rcutils/types/array_list, rcutils/types/char_array, rcutils/types/hash_map,
+  rcutils/types/string_array, rcutils/qsort, rcutils/types/string_map,
+  rcutils/types/uint8_array, ./events_statuses/events_statuses,
+  ./events_statuses/incompatible_qos, ./qos_policy_kind,
+  ./events_statuses/liveliness_changed, ./events_statuses/liveliness_lost,
+  ./events_statuses/message_lost, ./events_statuses/offered_deadline_missed,
+  ./events_statuses/requested_deadline_missed, ./init, ./init_options,
+  ./domain_id, ./localhost, ./ret_types, ./security_options,
+  ./serialized_message, ./subscription_content_filter_options, ./time
 
 const
-  RMW_INET_ADDRSTRLEN* = 48  ##  Transport protocol types
+  RMW_INET_ADDRSTRLEN* = 48 ##  Maximum length of internet address string including terminating null
+                            ##  Inspired from linux/inet.h
 
 type
 
-  rmw_transport_protocol_t* {.size: sizeof(cint).} = enum
+  rmw_transport_protocol_t* {.size: sizeof(cint).} = enum ##
+                              ##  Transport protocol types
     RMW_TRANSPORT_PROTOCOL_UNKNOWN = 0, RMW_TRANSPORT_PROTOCOL_UDP,
     RMW_TRANSPORT_PROTOCOL_TCP, RMW_TRANSPORT_PROTOCOL_COUNT
 
-  rmw_internet_protocol_t* {.size: sizeof(cint).} = enum
+  rmw_internet_protocol_t* {.size: sizeof(cint).} = enum ##
+                              ##  Internet protocol types
     RMW_INTERNET_PROTOCOL_UNKNOWN = 0, RMW_INTERNET_PROTOCOL_IPV4,
     RMW_INTERNET_PROTOCOL_IPV6, RMW_INTERNET_PROTOCOL_COUNT
 
-
-type
-
   rmw_network_flow_endpoint_t* {.importc: "rmw_network_flow_endpoint_t",
-                                 header: "network_flow_endpoint.h", bycopy.} = object
+                                 header: "network_flow_endpoint.h", bycopy.} = object ##
+                              ##  Structure that describes network flow endpoint of a publisher or subscription
     transport_protocol* {.importc: "transport_protocol".}: rmw_transport_protocol_t ##
                               ##  Transport protocol
     internet_protocol* {.importc: "internet_protocol".}: rmw_internet_protocol_t ##
@@ -87,12 +61,6 @@ type
                               ##  Internet address
 
 
-##  Internet protocol types
-
-##  Maximum length of internet address string including terminating null
-##  Inspired from linux/inet.h
-
-##  Structure that describes network flow endpoint of a publisher or subscription
 
 
 proc rmw_get_zero_initialized_network_flow_endpoint*(): rmw_network_flow_endpoint_t {.

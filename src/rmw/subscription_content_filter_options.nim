@@ -1,7 +1,3 @@
-##  #pragma c2nim mangle "'rosidl_runtime_c__' {\\w+}" "$1"
-##  #pragma c2nim mangle "'namespace_'" "namespace"
-##  #pragma c2nim mangle "'rmw_time_s'" "rmw_time_t"
-
 ##  Copyright 2021 Open Source Robotics Foundation, Inc.
 ##
 ##  Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,23 +13,13 @@
 ##  limitations under the License.
 
 import
-  rcutils/allocator, rcutils/allocator, rcutils/allocator, rcutils/macros,
-  rcutils/macros, rcutils/macros, rcutils/macros, rcutils/macros,
-  rcutils/allocator, rcutils/types/rcutils_ret, rcutils/allocator,
-  rcutils/visibility_control_macros, rcutils/visibility_control_macros,
-  rcutils/allocator, rcutils/types/array_list, rcutils/types/array_list,
-  rcutils/types/char_array, rcutils/types/char_array, rcutils/types/hash_map,
-  rcutils/types/hash_map, rcutils/types/string_array,
-  rcutils/types/string_array, rcutils/error_handling, rcutils/error_handling,
-  rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
-  rcutils/error_handling, rcutils/error_handling, rcutils/snprintf,
-  rcutils/snprintf, rcutils/error_handling, rcutils/testing/fault_injection,
-  rcutils/testing/fault_injection, rcutils/testing/fault_injection,
-  rcutils/error_handling, rcutils/error_handling, rcutils/error_handling,
-  rcutils/error_handling, rcutils/types/string_array, rcutils/qsort,
-  rcutils/qsort, rcutils/types/string_array, rcutils/types/string_map,
-  rcutils/types/string_map, rcutils/types/uint8_array,
-  rcutils/types/uint8_array, ./ret_types
+  rcutils/allocator, rcutils/macros, rcutils/types/rcutils_ret,
+  rcutils/visibility_control_macros, rcutils/types/array_list,
+  rcutils/types/char_array, rcutils/types/hash_map, rcutils/types/string_array,
+  rcutils/error_handling, rcutils/snprintf, rcutils/testing/fault_injection,
+  rcutils/qsort, rcutils/types/string_map, rcutils/types/uint8_array,
+  ./ret_types
+
 
 type
 
@@ -54,6 +40,7 @@ type
                               ##  It can be NULL if there is no "%n" tokens placeholder in filter_expression.
                               ##  The maximum index number must be smaller than 100.
                               ##
+
 
 
 

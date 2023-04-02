@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.2.0"
+version       = "0.2.1"
 author        = "Jaremy Creechley"
 description   = "Nim wrapper for ROS2 RMW"
 license       = "MIT"

@@ -13,5 +13,4 @@ bin           = @["rmw"]
 
 requires "nim >= 1.6.10"
 requires "https://github.com/Ros2Nim/rcutils.git >= 0.2.0"
-requires "https://github.com/Ros2Nim/rosidl.git >= 0.2.1"
-requires "https://github.com/Ros2Nim/rosidl_runtime_c.git"
+requires "https://github.com/Ros2Nim/rosidl.git >= 0.2.3"
